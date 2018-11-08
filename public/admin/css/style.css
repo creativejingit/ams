@@ -1,0 +1,15 @@
+.error-text {
+    color: red;
+    font-weight: 600;
+}
+
+.dropzone-box {
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    background: #f2f2f2;
+    text-align: center;
+    padding-top: 50px;
+    border: 2px dashed #cccccc;
+    margin-bottom: 3px;
+}
