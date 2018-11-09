@@ -10,4 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// login
+Route::get('/', 'IndexController@index');
+// Register
+Route::get('/register', 'AuthController@viewRegister');
 
