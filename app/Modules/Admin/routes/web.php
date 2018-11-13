@@ -1,5 +1,5 @@
 <?php
-
+/*
 Route::group(['module' => 'Admin', 'middleware' => ['web','guest'], 'namespace' => 'App\Modules\Admin\Controllers'], function() 
 {
 
@@ -51,3 +51,5 @@ Route::group(['module' => 'Admin', 'middleware' => ['web','admin.auth'], 'namesp
 	Route::post('upload/image', 'UploadController@image');
 	Route::post('upload/file', 'UploadController@file');
 });
+
+*/

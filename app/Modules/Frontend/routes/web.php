@@ -1,4 +1,6 @@
 <?php
+
+/*
 Route::group(['module' => 'Admin', 'middleware' => ['web'], 'namespace' => 'App\Modules\Admin\Controllers'], function() 
 {
 
@@ -15,3 +17,4 @@ Route::group(['module' => 'Frontend', 'middleware' => ['web'], 'namespace' => 'A
 
 });
 
+*/
