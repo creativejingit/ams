@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateAmsSuperAdminTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('ams_super_admin', function (Blueprint $table) {
+            $table->increments('super_administrator_id');
+            $table->integer('administrator_id');
+            $table->string('name', 250);
+            $table->string('company', 250);
+            $table->string('email');
+            $table->string('password');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->integer('deleted_by');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('ams_super_admin');
+    }
+}
