@@ -6,31 +6,29 @@
 </head>
     
 <body>
-    <!-- START PAGE CONTAINER -->
-    <div class="page-container">
-        <!-- START PAGE SIDEBAR -->
-        <div class="page-sidebar">
-            @include('common/sidebar')
-        </div>    
-        <!-- END PAGE SIDEBAR -->
-            
-        <!-- PAGE CONTENT -->
-        <div class="page-content">
-        	@include('common/header')
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                    <div class="body">
-                        @include('common/message')
-                    </div>
-                        @yield('content')
-                    </div>
-                </div>
+
+	<!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30">
+                <img class="loading-img-spin" src="{{ asset ('public/assets/images/loading.png') }}" width="20" height="20" alt="admin">
             </div>
+            <p>Please wait...</p>
         </div>
-        <!-- END PAGE CONTENT -->
     </div>
-	<!-- END PAGE CONTAINER -->
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+
+    <!-- Top Bar -->                   
+	
+	@include('common/navbar')
+	@include('common/sidebar')
+	
+	@yield('content')
+	
+	
     @include('common/footer-scripts')
 
 </body>

@@ -1,4 +1,4 @@
-    <!-- Top Bar -->
+
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -305,4 +305,3 @@
             </div>
         </div>
     </nav>
-    <!-- #Top Bar -->
