@@ -36,10 +36,7 @@
 	                    		$('.error_message').css('display', 'none');
 	                    	}
 	                    } else {
-	                    	// console.log(data);
-	                    	// asda
-	                        window.location = APP_URL + "/dashboard";
-	                        // window.location = data.redirect_url;
+	                        window.location = data.redirect_url;
 	                    }
 	                }
 	            });

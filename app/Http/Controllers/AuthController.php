@@ -43,17 +43,15 @@ class AuthController extends IndexController
     // dashboard view
     public function viewDashboard() 
     {	
-    	
-			// $superUserData 	=  Auth::user();
-			// dd($superUserData);
-		
-		// $data = [
-		// 		  'type' 			=> 'super_administrator',
-		// 		  'remember_token' 	=> $superUser->super_administrator_id
-		// 		];
+        
+		$userData 	=  Auth::user();
+		$data = [
+				  'type' 			        => 'super_administrator',
+                  'remember_token'          => $userData->remember_token,
+				  'super_administrator_id' 	=> $userData->super_administrator_id
+				];
 
-		// 		Session::put('super_administrator_data', $data);
-		// 		session(['hello' => 'world']);
+		Session::put('user_data', $data);
     	return view('auth.dashboard');
     }
 
@@ -81,13 +79,14 @@ class AuthController extends IndexController
                 $superUser                  = ModelAmsSuperAdministrator::find($superUser->super_administrator_id);
                 $superUser->remember_token  = str_random(30);
                 $superUser->save();
+                // return redirect()->action('AuthController@viewDashboard');
+                return response()->json([
+                    'auth' => false,
+                    'status' => '1',
+                    'redirect_url' => url('/dashboard'),
+                    'errors' => 'Success! logged in.'
+                ]); 
 
-                // return response()->json([
-                //     'status' => '1',
-                //     'redirect_url' => url('/dashboard'),
-                //     'errors' => 'Success! logged in.'
-                // ]); 
-                dd(response()->json());
             } else{
                 return response()->json([
                     'status' => '0',
