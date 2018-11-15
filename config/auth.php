@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'ams_super_administrator',
     ],
 
     /*
@@ -38,17 +38,17 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'ams_super_administrator',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'ams_super_administrator',
         ],
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'ams_super_administrator',
         ],
     ],
 
@@ -70,14 +70,14 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'ams_super_administrator' => [
             'driver' => 'eloquent',
-            'model' =>  App\Modules\Admin\Models\User::class,
+            'model' =>  App\ModelAmsSuperAdministrator::class,
         ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Modules\Admin\Models\Admin::class,
-        ],
+        // 'admins' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Modules\Admin\Models\Admin::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

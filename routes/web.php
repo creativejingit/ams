@@ -12,6 +12,14 @@
 */
 // login
 Route::get('/login', 'IndexController@index');
+Route::post('/log-in', 'AuthController@login');
+
 // Register
 Route::get('/register', 'AuthController@viewRegister');
+Route::post('/register', 'AuthController@register');
+
+// Dashboard
+Route::get('/dashboard', 'AuthController@viewDashboard');
+// Logout
+Route::get('/logout', 'AuthController@logout');
 

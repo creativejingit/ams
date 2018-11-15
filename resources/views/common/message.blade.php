@@ -1,14 +1,11 @@
 @if( $message = session('success') )
-    <div class="alert alert-success alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <i class="icon fa fa-check"></i>
-        {!! $message !!}
-    </div>
+    <div class="alert alert-success">
+	    <strong>Well done!</strong> You successfully read this important alert message.
+	</div>
 @endif
 
 @if( $message = session('error') )
-    <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <i class="icon fa fa-ban"></i> {!! $message !!}
+    <div class="alert alert-danger">
+        <strong>Oh snap!</strong> Change a few things up and try submitting again.
     </div>
 @endif

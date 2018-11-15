@@ -15,4 +15,11 @@
     <!-- You can choose a theme from css/styles instead of get all themes -->
     <link href="{{ asset ('public/assets/css/styles/all-themes.css') }}" rel="stylesheet" />
 
-<!-- EOF CSS INCLUDE -->                                    
+<!-- EOF CSS INCLUDE --> 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+   
+<!-- APP URL -->
+    <script type="text/javascript">
+        var APP_URL = {!! json_encode(url('/')) !!}
+    </script>
+<!-- END APP URL -->

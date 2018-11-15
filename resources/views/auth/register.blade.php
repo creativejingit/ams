@@ -22,25 +22,25 @@
                     <div class="row">
                         <div class="col-lg-6 p-t-20">
                             <div class="wrap-input100 validate-input" data-validate="Enter username">
-                                <input class="input100" type="text" name="username" placeholder="Username">
+                                <input class="input100 username" type="text" name="username" placeholder="Username">
                                 <i class="material-icons focus-input1001">person</i>
                             </div>
                         </div>
                         <div class="col-lg-6 p-t-20">
                             <div class="wrap-input100 validate-input" data-validate="Enter email">
-                                <input class="input100" type="email" name="email" placeholder="Email">
+                                <input class="input100 email" type="email" name="email" placeholder="Email">
                                 <i class="material-icons focus-input1001">person</i>
                             </div>
                         </div>
                         <div class="col-lg-6 p-t-20">
                             <div class="wrap-input100 validate-input" data-validate="Enter password">
-                                <input class="input100" type="password" name="pass" placeholder="Password">
+                                <input class="input100 pass" type="password" name="pass" placeholder="Password">
                                 <i class="material-icons focus-input1001">person</i>
                             </div>
                         </div>
                         <div class="col-lg-6 p-t-20">
                             <div class="wrap-input100 validate-input" data-validate="Enter password again">
-                                <input class="input100" type="password" name="pass2" placeholder="Confirm password">
+                                <input class="input100 pass2" type="password" name="pass2" placeholder="Confirm password">
                                 <i class="material-icons focus-input1001">person</i>
                             </div>
                         </div>
@@ -55,10 +55,10 @@
                             </label>
                         </div>
                     </div>--}}
+                    <div class="alert alert-danger hidden error_message" style="display:none">
+                    </div>
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
-                            Sign Up
-                        </button>
+                        <input type="button" name="button" style="background-color: #fff;" class="login100-form-btn sign-up-btn" value="Sign Up" />
                     </div>
                     {{--<div class="text-center p-t-50">
                         <a class="txt1" href="sign-in.html">
@@ -72,7 +72,8 @@
 
     <!-- Plugins Js -->
     <script src="{{ asset ('public/assets/js/app.min.js') }}"></script>
-
+    <!-- functionality JS -->
+    <script type="text/javascript" src="{{ URL::asset('public/js/auth.js') }}"></script>
     <!-- Extra page Js -->
     <script src="{{ asset ('public/assets/js/pages/examples/pages.js') }}"></script>
 

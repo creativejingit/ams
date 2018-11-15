@@ -13,16 +13,16 @@ class CreateAmsSuperAdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('ams_super_admin', function (Blueprint $table) {
+        Schema::create('ams_super_administrator', function (Blueprint $table) {
             $table->increments('super_administrator_id');
-            $table->integer('administrator_id');
             $table->string('name', 250);
             $table->string('company', 250);
             $table->string('email');
             $table->string('password');
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->rememberToken();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,6 +35,6 @@ class CreateAmsSuperAdminTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ams_super_admin');
+        Schema::dropIfExists('ams_super_administrator');
     }
 }

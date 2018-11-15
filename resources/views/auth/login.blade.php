@@ -19,12 +19,12 @@
                     <span class="login100-form-title p-b-34 p-t-27">
                         Log in
                     </span>
-                    <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" type="text" name="username" placeholder="Username">
+                    <div class="wrap-input100 validate-input" data-validate="Enter Email">
+                        <input class="input100 email" type="text" name="email" placeholder="Email">
                         <i class="material-icons focus-input1001">person</i>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <input class="input100 password" type="password" name="pass" placeholder="Password">
                         <i class="material-icons focus-input1001">lock</i>
                     </div>
                     <div class="contact100-form-checkbox">
@@ -37,10 +37,10 @@
                             </label>
                         </div>--}}
                     </div>
+                    <div class="alert alert-danger hidden error_message" style="display:none">
+                    </div>
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
-                            Login
-                        </button>
+                        <input type="button" name="button" style="background-color: #fff;" class="login100-form-btn login-btn" value="Login" />
                     </div>
                     <div class="text-center p-t-50">
                         <a class="txt1" href="forgot-password.html">
@@ -59,12 +59,10 @@
 
     <!-- Plugins Js -->
     <script src="{{ asset ('public/assets/js/app.min.js') }}"></script>
-
+    <!-- functionality JS -->
+    <script type="text/javascript" src="{{ URL::asset('public/js/auth.js') }}"></script>
     <!-- Extra page Js -->
     <script src="{{ asset ('public/assets/js/pages/examples/pages.js') }}"></script>
 
 </body>
-
-
-<!-- Mirrored from www.radixtouch.in/templates/admin/roxa/source/light/pages/examples/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Nov 2018 10:40:59 GMT -->
-</html>
+</html> 

@@ -20,8 +20,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                    @include('common/message')
-                    @yield('content')
+                    <div class="body">
+                        @include('common/message')
+                    </div>
+                        @yield('content')
                     </div>
                 </div>
             </div>
