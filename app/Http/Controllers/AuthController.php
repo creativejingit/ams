@@ -79,7 +79,7 @@ class AuthController extends IndexController
                 $superUser                  = ModelAmsSuperAdministrator::find($superUser->super_administrator_id);
                 $superUser->remember_token  = str_random(30);
                 $superUser->save();
-                // return redirect()->action('AuthController@viewDashboard');
+
                 return response()->json([
                     'auth' => false,
                     'status' => '1',
