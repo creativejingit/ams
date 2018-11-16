@@ -28,89 +28,80 @@
 						</div>
 					</div>
 				</div>
-		    <!-- Advanced Validation -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2><strong> @if($id) Edit @else Create  @endif  Super Administrator </strong></h2>
-                        </div>
-                        <div class="body">
-                            
-							{!! Form::model($super_administrator, ['method'=>'post','url' => url('super-administrator/save', ['id' => $id]),'class'=>'form-horizontal']) !!}
-
-
-
-
-								<div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="number" class="form-control" name="minmaxvalue" min="10" max="200" required="">
-                                        <label class="form-label">Min/Max Value</label>
-                                    </div>
-                                    <div class="help-info">Min. Value: 10, Max. Value: 200</div>
-                                </div>
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="number" class="form-control" name="minmaxvalue" min="10" max="200" required="">
-                                        <label class="form-label">Min/Max Value</label>
-                                    </div>
-                                    <div class="help-info">Min. Value: 10, Max. Value: 200</div>
-                                </div>
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                        <input type="number" class="form-control" name="minmaxvalue" min="10" max="200" required="">
-                                        <label class="form-label">Min/Max Value</label>
-                                    </div>
-                                    <div class="help-info">Min. Value: 10, Max. Value: 200</div>
-                                </div>
-
-
-
-
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-										{!! Form::text('name',$super_administrator->name, [
-                                                    'class' => 'form-control',
-                                                    'id'=>'name',
-													"required"=>'required'
-                                                ]) !!}
-                                        <label class="form-label">Name</label>
-                                    </div>
-									@if(isset($errors) && $errors->has('status'))
-										  <div class="help-info">xfedasdf{{ $errors->first('status') }}</div>
-									@endif
-									  <div class="help-info">Min. 3, Max. 10 characters</div>
-
-                                  
-                                </div>
-
-                                 <div class="form-group form-float">
-                                    <div class="form-line">
-										{!! Form::text('company',$super_administrator->company, [
-                                                    'class' => 'form-control',
-                                                    'id'=>'company',
-													"required"=>'required'
-                                                ]) !!}
-                                        <label class="form-label">Name</label>
-                                    </div>
-									@if(isset($errors) && $errors->has('status'))
-										  <div class="help-info">asdasda {{ $errors->first('status') }}</div>
-									@endif
-                                  	  <div class="help-info">Min. 3, Max. 10 characters</div>
-
-                                </div>
-
-
-                                <button class="btn btn-primary waves-effect" type="submit">Save</button>
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# Advanced Validation -->
-		</div>
+			    <div class="row clearfix">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="card">
+							<div class="header">
+								<h2><strong> @if($id) Edit @else Create  @endif  Super Administrator </strong></h2>
+								<ul class="header-dropdown m-r--5">
+									<li class="dropdown">
+										<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+											aria-haspopup="true" aria-expanded="false">
+											<i class="material-icons">more_vert</i>
+										</a>
+										<ul class="dropdown-menu pull-right">
+											<li>
+												<a href="javascript:void(0);">Action</a>
+											</li>
+											<li>
+												<a href="javascript:void(0);">Another action</a>
+											</li>
+											<li>
+												<a href="javascript:void(0);">Something else here</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="body">
+								
+								
+									{!! Form::model($super_administrator, ['method'=>'post','url' => url('super-administrator/save'), 'id' => 'form_advanced_validation' ,'class'=>'']) !!}
+										
+								
+									
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('name',null, [
+														'class' => 'form-control',
+														'id'=>'name',
+														'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">Name </label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="name-error" class="error" for="name">{{ $errors->first('name') }}</label>
+										@endif
+										
+										<div class="help-info">Name Input accept  string</div>
+									</div>
+									
+									 <div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('company',null, [
+														'class' => 'form-control',
+														'id'=>'company',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">Company</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="name-error" class="error" for="company">{{ $errors->first('company') }}</label>
+										@endif
+										
+										<div class="help-info">Company Input accept  string</div>
+										
+									</div>
+									
+									<button class="btn btn-primary waves-effect" type="submit">Save</button>
+								{!! Form::close() !!}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 	</section>
 	
 			

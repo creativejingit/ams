@@ -54,12 +54,12 @@ class SuperAdministratorController extends Controller
 	{
 		$rules = [
 	            "name"  => "required",
-				//"company"  => "required",
+				"company"  => "required",
 				// "email"  => "required",
 				];
 
 		$validator = \Validator::make($request->all(), $rules,[
-			//"type.required"=>"Select User Type"
+			//"name.required"=>"Select User Type"
 		]);
 
 		if($validator->fails()) {
