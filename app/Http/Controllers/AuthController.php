@@ -8,6 +8,7 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SuperAdministrator as SuperAdministrator;
+use Config;
 use Carbon\Carbon;
 use Session;
 use Redirect;
@@ -60,10 +61,12 @@ class AuthController extends IndexController
     {
         $email      = $request->email;
         $password   = $request->password;
+        $user_type  = $request->user_type;
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6',
+            'user_type' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -73,12 +76,20 @@ class AuthController extends IndexController
                 'errors' => $validator->errors()
             ]); 
         } else {
+
             if (Auth::attempt(array('email' => $email, 'password' => $password))) {
                 // Success
-                $superUser                  = auth()->user();
-                $superUser                  = SuperAdministrator::find($superUser->super_administrator_id);
-                $superUser->remember_token  = str_random(30);
-                $superUser->save();
+                $user                  = auth()->user();
+                if($user_type == 1) {
+                    $user = SuperAdministrator::find($user->super_administrator_id);
+                }elseif($user_type == 2) {
+                    $user = Administrator::find($user->super_administrator_id);
+                }elseif($user_type == 3) {
+                    $user = User::find($user->super_administrator_id);
+                }
+
+                $user->remember_token  = str_random(30);
+                $user->save();
 
                 return response()->json([
                     'auth' => false,

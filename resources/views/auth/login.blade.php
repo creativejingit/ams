@@ -27,6 +27,15 @@
                         <input class="input100 password" type="password" name="pass" placeholder="Password">
                         <i class="material-icons focus-input1001">lock</i>
                     </div>
+
+                    <select class="form-control user_type">
+                        <option value="">Select User Type</option>
+                        <option value="1">Super Admininstrator</option>
+                        <option value="2">Admininstrator</option>
+                        <option value="3">User</option>
+                    </select>
+
+
                     <div class="contact100-form-checkbox">
                         {{--<div class="form-check">
                             <label class="form-check-label">

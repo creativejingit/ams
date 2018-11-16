@@ -3,10 +3,14 @@
 	    $(".login-btn").on('click', function (e) {
 	        let email = $(".email").val();
 	        let password = $(".password").val();
+	        let user_type = $('.user_type').val();
 
 	        if (email == '' || password == '') {
 	    		$('.error_message').css('display', 'block');
                 $('.error_message').html('<strong> Error! </strong> Please Fill Incomplete Fields.');
+	        } else if (user_type == '') {
+	        	$('.error_message').css('display', 'block');
+                $('.error_message').html('<strong> Error! </strong> Please Select User Type.');
 	        } else {
 	            $.ajax({
 	                url: APP_URL + "/log-in",
@@ -15,6 +19,7 @@
 	                data: {
 	                    email: email,
 	                    password: password,
+	                    user_type: user_type,
 	                    _token: $('meta[name="csrf-token"]').attr('content')
 	                },
 	                success: function (data) {
@@ -94,4 +99,5 @@
 	            });
 	        }
 	    });
+
 	});

@@ -53,9 +53,10 @@ class SuperAdministratorController extends Controller
 	public function save(Request $request, $id = null)
 	{
 		$rules = [
-	            "name"  => "required",
-				"company"  => "required",
-				// "email"  => "required",
+		            "name"  	=> "required",
+					"company"  	=> "required",
+					"email"  	=> "required|email",
+					"password"  => "required|min:6",
 				];
 
 		$validator = \Validator::make($request->all(), $rules,[

@@ -58,7 +58,6 @@
 								
 									{!! Form::model($super_administrator, ['method'=>'post','url' => url('super-administrator/save'), 'id' => 'form_advanced_validation' ,'class'=>'']) !!}
 										
-								
 									
 									<div class="form-group form-float">
 										<div class="form-line">
@@ -92,6 +91,43 @@
 										@endif
 										
 										<div class="help-info">Company Input accept  string</div>
+										
+									</div>
+
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('email',null, [
+														'class' => 'form-control',
+														'id'=>'email',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">Email</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="name-error" class="error" for="company">{{ $errors->first('email') }}</label>
+										@endif
+										
+										<div class="help-info">Email Input accept email</div>
+										
+									</div>
+
+
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::password('password',null, [
+														'class' => 'form-control',
+														'id'=>'password',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">Password</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="name-error" class="error" for="company">{{ $errors->first('password') }}</label>
+										@endif
+										
+										<div class="help-info">Password Input accept string</div>
 										
 									</div>
 									
