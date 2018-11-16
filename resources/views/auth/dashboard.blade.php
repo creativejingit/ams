@@ -565,3 +565,15 @@
         </div>
     </section>
 @endsection
+
+@section('script')
+    <script src="{{ asset ('public/assets/js/table.min.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/admin.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/jszip.min.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/pages/tables/jquery-datatable.js') }}"></script>
+    <script src="{{ asset ('public/assets/js/demo.js') }}"></script>
+@endsection()

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\IndexController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use App\ModelAmsSuperAdministrator as ModelAmsSuperAdministrator;
+use App\Models\SuperAdministrator as SuperAdministrator;
 use Carbon\Carbon;
 use Session;
 use Redirect;
@@ -76,7 +76,7 @@ class AuthController extends IndexController
             if (Auth::attempt(array('email' => $email, 'password' => $password))) {
                 // Success
                 $superUser                  = auth()->user();
-                $superUser                  = ModelAmsSuperAdministrator::find($superUser->super_administrator_id);
+                $superUser                  = SuperAdministrator::find($superUser->super_administrator_id);
                 $superUser->remember_token  = str_random(30);
                 $superUser->save();
 
