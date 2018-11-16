@@ -39,23 +39,72 @@
                             
 							{!! Form::model($super_administrator, ['method'=>'post','url' => url('super-administrator/save', ['id' => $id]),'class'=>'form-horizontal']) !!}
 
+
+
+
+								<div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" name="minmaxvalue" min="10" max="200" required="">
+                                        <label class="form-label">Min/Max Value</label>
+                                    </div>
+                                    <div class="help-info">Min. Value: 10, Max. Value: 200</div>
+                                </div>
+
                                 <div class="form-group form-float">
                                     <div class="form-line">
-											{!! Form::text('super_administrator',$super_administrator->name, [
+                                        <input type="number" class="form-control" name="minmaxvalue" min="10" max="200" required="">
+                                        <label class="form-label">Min/Max Value</label>
+                                    </div>
+                                    <div class="help-info">Min. Value: 10, Max. Value: 200</div>
+                                </div>
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" name="minmaxvalue" min="10" max="200" required="">
+                                        <label class="form-label">Min/Max Value</label>
+                                    </div>
+                                    <div class="help-info">Min. Value: 10, Max. Value: 200</div>
+                                </div>
+
+
+
+
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+										{!! Form::text('name',$super_administrator->name, [
                                                     'class' => 'form-control',
-                                                    'id'=>'super_administrator',
-													"name"=>"name",
+                                                    'id'=>'name',
 													"required"=>'required'
                                                 ]) !!}
                                         <label class="form-label">Name</label>
                                     </div>
 									@if(isset($errors) && $errors->has('status'))
-										  <div class="help-info">{{ $errors->first('status') }}</div>
+										  <div class="help-info">xfedasdf{{ $errors->first('status') }}</div>
 									@endif
+									  <div class="help-info">Min. 3, Max. 10 characters</div>
+
                                   
                                 </div>
-                                <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
-                            </form>
+
+                                 <div class="form-group form-float">
+                                    <div class="form-line">
+										{!! Form::text('company',$super_administrator->company, [
+                                                    'class' => 'form-control',
+                                                    'id'=>'company',
+													"required"=>'required'
+                                                ]) !!}
+                                        <label class="form-label">Name</label>
+                                    </div>
+									@if(isset($errors) && $errors->has('status'))
+										  <div class="help-info">asdasda {{ $errors->first('status') }}</div>
+									@endif
+                                  	  <div class="help-info">Min. 3, Max. 10 characters</div>
+
+                                </div>
+
+
+                                <button class="btn btn-primary waves-effect" type="submit">Save</button>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
@@ -69,7 +118,7 @@
 			
 			
 			
-    <?php /*    {!! Form::close() !!}  */ ?>
+    
     @endsection()
 	
 	
@@ -78,14 +127,12 @@
 			
 			
 			<script src="{{ asset ('public/assets/js/table.min.js') }}"></script>
-			<script src="{{ asset ('public/assets/js/admin.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/dataTables.buttons.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/jszip.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pdfmake.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/vfs_fonts.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/buttons.html5.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/tables/jquery-datatable.js') }}"></script>
-			<script src="{{ asset ('public/assets/js/demo.js') }}"></script>
 			
 	@endsection()
 	
