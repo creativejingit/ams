@@ -1,6 +1,6 @@
 'use strict';
 $(function () {
-    $('.js-sweetalert button').on('click', function () {
+    $('.js-sweetalert').on('click', function () {
         var type = $(this).data('type');
         if (type === 'basic') {
             showBasicMessage();
@@ -30,7 +30,13 @@ $(function () {
             showPromptMessage();
         }
         else if (type === 'ajax-loader') {
-            showAjaxLoaderMessage();
+			
+			var row = $(this).data('row');
+			var url = $(this).data('url');
+			var id = $(this).data('id');
+			console.log(row+url+id); 
+            showAjaxLoaderMessage(row,url,id);
+		
         }
     });
 });
@@ -125,17 +131,32 @@ function showPromptMessage() {
     });
 }
 
-function showAjaxLoaderMessage() {
+function showAjaxLoaderMessage( row, url, id) {
+	
     swal({
-        title: "Ajax request example",
-        text: "Submit to run ajax request",
+        title: "Confirmation to delete the record",
+        text: "Press Confirm button to delete the record. ",
         type: "info",
         showCancelButton: true,
         closeOnConfirm: false,
+		 confirmButtonText: "Confirm",
         showLoaderOnConfirm: true,
     }, function () {
+		    $.ajax({
+                url: url+'/'+id ,
+                method: 'GET',
+				//data: {id: id} ,
+                success: function(resp){
+                    if(resp.status){
+                        $("#"+row).hide("slow",function(){
+                            $("#"+row).remove();
+                        });
+                    }
+                    console.log(resp);
+                }
+            });
         setTimeout(function () {
-            swal("Ajax request finished!");
+            swal("Record Successfully Deleted. ");
         }, 2000);
     });
 }

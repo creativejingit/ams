@@ -55,10 +55,9 @@ class SuperAdministratorController extends Controller
 		$rules = [
 	            "name"  => "required",
 				//"company"  => "required",
-	           // "email"  => "required",
+				// "email"  => "required",
 				];
 
-		
 		$validator = \Validator::make($request->all(), $rules,[
 			//"type.required"=>"Select User Type"
 		]);
@@ -72,14 +71,14 @@ class SuperAdministratorController extends Controller
 		$super_administrator->fill($data);
 		
 	
-
 		$super_administrator->save();
 		$action = ($id) ? 'updated.' : 'created.';
-		return redirect('super-administrator/')->with('success',$super_administrator->type.' has been '.$action);
+		return redirect('super-administrator/')->with('success',$super_administrator->name.' Super Administrator has been '.$action);
 	}
 
-	public function remove($id)
+	public function remove($id=null)
 	{
+		//$id = $request->id ? $request->id : null;
 		if($id) {
 			SuperAdministrator::find($id)->delete();
 			return response()->json([

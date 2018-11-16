@@ -3,6 +3,9 @@
 
 <head>
     @include('common/head')
+	<style>
+			@yield('style')
+	</style>
 </head>
     
 <body>

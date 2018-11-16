@@ -52,27 +52,7 @@ function skinChanger() {
     /*Delete Row*/
     //$("body").on('click','.delete_row',function(e){
 	 $('.delete_row').on('click', function () {
-        //e.preventDefault();
-        var row = $(this).data('row');
-        var url = $(this).data('href');
-        var box = $("#mb-remove-row");
-        box.addClass("open");
-        
-       // box.find(".mb-control-yes").on("click",function(){
-           // box.removeClass("open");
-            $.ajax({
-                url: url ,
-                method: 'GET',
-                success: function(resp){
-                    if(resp.status){
-                        $("#"+row).hide("slow",function(){
-                            $(this).remove();
-                        });
-                    }
-                    console.log(resp);
-                }
-            });
-        //});
+
     })
 	
 //Full screen window
