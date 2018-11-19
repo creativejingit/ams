@@ -117,11 +117,12 @@
 									
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::text('password',null, [
-														'class' => 'form-control',
-														'id'=>'password',
-														 'aria-invalid'=>'true'
-													]) !!}
+											{!! Form::password('password', [
+													'class' => 'form-control',
+													'id'=>'password',
+													 'aria-invalid'=>'true'
+											]) !!}    
+
 											<label class="form-label">Password</label>
 										</div>
 										
