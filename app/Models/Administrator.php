@@ -9,6 +9,9 @@ class Administrator extends Authenticatable
     //
     protected $table = 'ams_administrator';
     protected $primaryKey = 'administrator_id';
+    protected $casts = [
+        'theme_setting' => 'array'
+    ];
 
     /**
      * The attributes that are mass assignable.

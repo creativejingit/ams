@@ -571,5 +571,7 @@
     <script src="{{ asset ('public/assets/js/chart.min.js') }}"></script>
     <script src="{{ asset ('public/assets/js/pages/dashboard/dashboard2.js') }}"></script>
     <script src="{{ asset ('public/assets/js/pages/charts/jquery-knob.js') }}"></script>
+    <!-- functionality JS -->
+    <script type="text/javascript" src="{{ URL::asset('public/js/auth.js') }}"></script>
     
 @endsection()

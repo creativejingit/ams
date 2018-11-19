@@ -18,6 +18,7 @@ class SuperAdministratorTableSeeder extends Seeder
 	            'company'			=> 'Symmetry Group',
 	            'email' 			=> 'super.admin@ams.com',
 	            'password' 			=> \Hash::make('123456'),
+	            'theme_setting'		=> '{ "sidebar_menu_colors": "btn-sidebar-light","skins": "purple" }',
 	            'remember_token' 	=> null,
 	            'created_by'		=> 0,
 	            'updated_by'		=> null,

@@ -22,6 +22,9 @@ Route::post('/register', 'AuthController@register');
 Route::get('/dashboard', 'AuthController@viewDashboard');
 // Logout
 Route::get('/logout', 'AuthController@logout');
+// Save theme
+Route::post('/save-user-theme', 'AuthController@saveUserTheme');
+
 
 
 

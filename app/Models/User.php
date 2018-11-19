@@ -9,7 +9,9 @@ class User extends Authenticatable
 {
     protected $table = 'ams_user';
     protected $primaryKey = 'user_id';
-
+    protected $casts = [
+        'theme_setting' => 'array'
+    ];
     /**
      * The attributes that are mass assignable.
      *

@@ -19,6 +19,7 @@ class CreateAmsSuperAdminTable extends Migration
             $table->string('company', 250);
             $table->string('email');
             $table->string('password');
+            $table->text('theme_setting');
             $table->rememberToken();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

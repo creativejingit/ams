@@ -49,9 +49,15 @@ class AuthController extends IndexController
         
 		$userData 	=  Auth::user();
 		$data = [
-				  'type' 			        => 'super_administrator',
-                  'remember_token'          => $userData->remember_token,
-				  'super_administrator_id' 	=> $userData->super_administrator_id
+                    'type' 			          => 'super_administrator',
+                    'remember_token'          => $userData->remember_token,
+                    'super_administrator_id'  => $userData->super_administrator_id,
+                    'theme_setting'           => isset($userData->theme_setting) ? 
+                                                 $userData->theme_setting :    
+                                                   '{
+                                                        "sidebar_menu_colors": "btn-sidebar-light",
+                                                        "skins": "purple"
+                                                    }',
 				];
 
 		Session::put('user_data', $data);
@@ -93,7 +99,7 @@ class AuthController extends IndexController
                 $user->save();
 
                 return response()->json([
-                    'auth' => false,
+                    // 'auth' => false,
                     'status' => '1',
                     'redirect_url' => url('/dashboard'),
                     'errors' => 'Success! logged in.'
@@ -152,6 +158,25 @@ class AuthController extends IndexController
                 'message' => 'Success! You are registered with the system.'
             ]);
         }
+    }
+
+    public function saveUserTheme(Request $request)
+    {
+        $userData   =  Auth::user();
+        $userId = $userData->super_administrator_id;
+
+        $superAdmin = SuperAdministrator::find($userId);
+
+        // $superAdmin->theme_setting =    '{
+        //                                     "sidebar_menu_colors": "'
+        //                                     .$request->sidebar_menu_colors.'",
+        //                                     "skins": "'.$request->skins.'"
+        //                                 }';
+        $superAdmin->theme_setting =    '{
+                                                        "sidebar_menu_colors": "btn-sidebar-light",
+                                                        "skins": "purple"
+                                        }';
+        $superAdmin->save();
     }
 
 

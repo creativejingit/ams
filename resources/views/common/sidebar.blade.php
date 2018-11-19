@@ -1,6 +1,5 @@
-	<div>
+    <div>
         <!-- Left Sidebar -->
-
         <aside id="leftsidebar" class="sidebar">
             <!-- Menu -->
             <div class="menu">
@@ -426,21 +425,26 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="rightSetting">
+
+
+
+                        <div class="rightSetting btn-sidebar-menu-color">
                             <p>SIDEBAR MENU COLORS</p>
-                            <button type="button" class="btn btn-sidebar-light btn-border-radius p-l-20 p-r-20">Light</button>
-                            <button type="button" class="btn btn-sidebar-dark btn-default btn-border-radius p-l-20 p-r-20">Dark</button>
+                            <button type="button" data-menu-color = 'btn-sidebar-light' class="btn sidebar-menu-colors btn-sidebar-light btn-border-radius p-l-20 p-r-20">Light</button>
+                            <button type="button" data-menu-color = 'btn-sidebar-dark' class="btn btn-sidebar-dark btn-default btn-border-radius p-l-20 p-r-20">Dark</button>
                         </div>
+                                              
+                        
                         <div class="rightSetting">
                             <p>SKINS</p>
-                            <ul class="demo-choose-skin choose-theme list-unstyled">
-                                <li data-theme="black" class="actived">
+                            <ul class="demo-choose-skin choose-theme list-unstyled skin-selected">
+                                <li data-theme="black" >
                                     <div class="black-theme"></div>
                                 </li>
                                 <li data-theme="white">
                                     <div class="white-theme white-theme-border"></div>
                                 </li>
-                                <li data-theme="purple">
+                                <li data-theme="purple" class="actived">
                                     <div class="purple-theme"></div>
                                 </li>
                                 <li data-theme="blue">

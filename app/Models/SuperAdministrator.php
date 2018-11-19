@@ -12,6 +12,9 @@ class SuperAdministrator extends Authenticatable
     //
     protected $table = 'ams_super_administrator';
     protected $primaryKey = 'super_administrator_id';
+    protected $casts = [
+        'theme_setting' => 'array'
+    ];
 
     /**
      * The attributes that are mass assignable.

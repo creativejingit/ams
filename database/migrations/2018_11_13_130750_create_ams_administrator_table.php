@@ -20,6 +20,7 @@ class CreateAmsAdministratorTable extends Migration
             $table->string('company', 250);
             $table->string('email');
             $table->string('password');
+            $table->text('theme_setting');
             $table->string('activation_password', 250);
             $table->enum('activation_status', ['active', 'inactive']);
             $table->rememberToken();

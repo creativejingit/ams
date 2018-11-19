@@ -7,8 +7,25 @@
 			@yield('style')
 	</style>
 </head>
-    
-<body>
+
+@php
+
+    $sidebarMenuColor = json_decode(Session::get('user_data')['theme_setting'])->sidebar_menu_colors;
+    $skins = json_decode(Session::get('user_data')['theme_setting'])->skins;
+    if ($sidebarMenuColor == 'btn-sidebar-light') :
+        $class = "submenu-closed logo-white";
+        $skin = "theme-".$skins;
+    elseif ($sidebarMenuColor == 'btn-sidebar-dark') : 
+        $class = "menu_dark logo-black submenu-closed";
+        $skin = "theme-".$skins;
+    else : 
+        $class = "submenu-closed logo-white";
+        $skin = "theme-".$skins;
+    endif;
+@endphp
+
+<body class="{!!$skin!!} {!!$class!!}">
+
 
 	<!-- Page Loader -->
     <div class="page-loader-wrapper">
