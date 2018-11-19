@@ -28,6 +28,9 @@
 						</div>
 					</div>
 				</div>
+				
+				
+				
 			    <div class="row clearfix">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="card">
@@ -55,10 +58,9 @@
 							</div>
 							<div class="body">
 								
-								
-									{!! Form::model($super_administrator, ['method'=>'post','url' => url('super-administrator/save'), 'id' => 'form_advanced_validation' ,'class'=>'']) !!}
-										
 									
+									{!! Form::model($super_administrator, ['url' => url('super-administrator/save', ['id' => $id]),'class'=>'' ,'id' => 'form_advanced_validation']) !!}
+
 									<div class="form-group form-float">
 										<div class="form-line">
 											{!! Form::text('name',null, [
@@ -111,11 +113,11 @@
 										<div class="help-info">Email Input accept email</div>
 										
 									</div>
-
-
+									
+									
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::password('password',null, [
+											{!! Form::text('password',null, [
 														'class' => 'form-control',
 														'id'=>'password',
 														 'aria-invalid'=>'true'
@@ -124,12 +126,14 @@
 										</div>
 										
 										@if(isset($errors))
-											<label id="name-error" class="error" for="company">{{ $errors->first('password') }}</label>
+											<label id="name-error" class="error" for="password">{{ $errors->first('password') }}</label>
 										@endif
 										
-										<div class="help-info">Password Input accept string</div>
+										<div class="help-info">password Input accept email</div>
 										
 									</div>
+
+
 									
 									<button class="btn btn-primary waves-effect" type="submit">Save</button>
 								{!! Form::close() !!}
