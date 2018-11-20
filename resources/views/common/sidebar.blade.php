@@ -29,6 +29,12 @@
                             </a>
                         </div>
                     </li>
+                    <li>
+                        <a href="{{ url('package/view-package') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Package Creation</span>
+                        </a>
+                    </li>
                     <li class="header">Main</li>
                     <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">

@@ -16,10 +16,11 @@ class CreateAmsPackageModuleTable extends Migration
         Schema::create('ams_package_module', function (Blueprint $table) {
             $table->increments('package_module_id');
             $table->integer('package_id');
+            $table->integer('module_id');
             $table->integer('status')->default(0);
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

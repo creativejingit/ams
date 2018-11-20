@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAmsMethodTable extends Migration
+class CreateAmsSubModuleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateAmsMethodTable extends Migration
      */
     public function up()
     {
-        Schema::create('ams_method', function (Blueprint $table) {
-            $table->increments('method_id');
+        Schema::create('ams_sub_module', function (Blueprint $table) {
+            $table->increments('sub_module_id');
             $table->integer('module_id');
-            $table->integer('sub_module_id');
             $table->string('name', 250);
-            $table->string('url');
+            $table->string('description', 250);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
@@ -35,6 +34,6 @@ class CreateAmsMethodTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ams_method');
+        Schema::dropIfExists('ams_sub_module');
     }
 }

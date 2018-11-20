@@ -9,6 +9,7 @@ class Administrator extends Authenticatable
     //
     protected $table = 'ams_administrator';
     protected $primaryKey = 'administrator_id';
+    public $timestamps = true;
     protected $casts = [
         'theme_setting' => 'array'
     ];

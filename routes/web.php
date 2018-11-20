@@ -24,6 +24,16 @@ Route::get('/dashboard', 'AuthController@viewDashboard');
 Route::get('/logout', 'AuthController@logout');
 // Save theme
 Route::post('/save-user-theme', 'AuthController@saveUserTheme');
+// Create Package
+Route::get('package/view-package', 'PackageController@viewPackage');
+// Add Package
+Route::get('package/add-package', 'PackageController@add');
+Route::get('package/edit/{id?}', 'PackageController@edit');
+Route::post('package/save/{id?}', 'PackageController@save');
+
+Route::get('package/get-modules', 'PackageController@getModules');
+Route::post('package/save-package-modules', 'PackageController@savePackageModules');
+
 
 
 

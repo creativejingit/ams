@@ -18,9 +18,10 @@ class CreateAmsModuleTable extends Migration
             $table->string('name', 250);
             $table->string('description', 250);
             $table->double('price', 20, 2);
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->string('status')->default('1');
             $table->timestamps();
             $table->softDeletes();
         });

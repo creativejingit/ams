@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
     protected $table = 'ams_user';
     protected $primaryKey = 'user_id';
+    public $timestamps = true;
     protected $casts = [
         'theme_setting' => 'array'
     ];
