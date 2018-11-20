@@ -54,10 +54,7 @@ class AuthController extends IndexController
                     'super_administrator_id'  => $userData->super_administrator_id,
                     'theme_setting'           => isset($userData->theme_setting) ? 
                                                  $userData->theme_setting :    
-                                                   '{
-                                                        "sidebar_menu_colors": "btn-sidebar-light",
-                                                        "skins": "purple"
-                                                    }',
+                                                   '{"sidebar_menu_colors": "btn-sidebar-light","skins": "purple"}',
 				];
 
 		Session::put('user_data', $data);
@@ -165,17 +162,14 @@ class AuthController extends IndexController
         $userData   =  Auth::user();
         $userId = $userData->super_administrator_id;
 
-        $superAdmin = SuperAdministrator::find($userId);
+        $superAdmin = SuperAdministrator::find($userId);    
 
-        // $superAdmin->theme_setting =    '{
-        //                                     "sidebar_menu_colors": "'
-        //                                     .$request->sidebar_menu_colors.'",
-        //                                     "skins": "'.$request->skins.'"
-        //                                 }';
-        $superAdmin->theme_setting =    '{
-                                                        "sidebar_menu_colors": "btn-sidebar-light",
-                                                        "skins": "purple"
-                                        }';
+        $arr = array(
+          'sidebar_menu_colors' => $request->sidebar_menu_colors,
+          'skins' => $request->skins,
+        );
+
+        $superAdmin->theme_setting = $arr; 
         $superAdmin->save();
     }
 

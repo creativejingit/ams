@@ -9,9 +9,11 @@
 </head>
 
 @php
-
+    $data = Session::get('user_data')['theme_setting'];
+    $parseJson = json_decode($data);
     $sidebarMenuColor = json_decode(Session::get('user_data')['theme_setting'])->sidebar_menu_colors;
     $skins = json_decode(Session::get('user_data')['theme_setting'])->skins;
+    
     if ($sidebarMenuColor == 'btn-sidebar-light') :
         $class = "submenu-closed logo-white";
         $skin = "theme-".$skins;

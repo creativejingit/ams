@@ -143,9 +143,9 @@
 	    });
 
 	    $('.skin-selected').on('click', function (e) {
-	    	let sidebarmenuColor = $('.btn-sidebar-menu-color').find('.active').data('menu-color');
+	    	let sidebarmenuColor = $('.btn-sidebar-menu-color').data('menu-color')||'btn-sidebar-light';
 	    	let themeColor = $(this).find('.actived').data('theme');
-	    	// console.log(themeColor, sidebarmenuColor);
+	    	console.log(themeColor, sidebarmenuColor);
 
 	    	$.ajax({
                 url: APP_URL + "/save-user-theme",
