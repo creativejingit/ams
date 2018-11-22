@@ -32,6 +32,7 @@ Route::get('package/edit/{id?}', 'PackageController@edit');
 Route::post('package/save/{id?}', 'PackageController@save');
 
 Route::get('package/get-modules', 'PackageController@getModules');
+Route::get('package/get-saved-modules', 'PackageController@getSavedModules');
 Route::post('package/save-package-modules', 'PackageController@savePackageModules');
 
 

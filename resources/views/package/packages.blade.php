@@ -83,8 +83,92 @@
 												<tr id="trow_{{$id}}">
 													@foreach($grid['columns'] as $key=>$value)
 													@if($key=='module_selection')
-														<td>
-															<select class="form-group col-10" id="multisel" data-package-id="{{$id}}" multiple>
+														<td style="width:300px;">
+
+															
+
+															<select name="modules" onChange="savePackageModule($(this),{{$id}})" class="multisel form-group col-10" style="width:300px;"  data-package-id="{{$id}}" data-package_id="{{$id}}" multiple>
+																<?php 
+																		
+																		/*foreach($module as $row ) 
+																		{
+																?>
+																			<?php 
+
+																			//echo $td->package_id; 
+																			//echo $row->module_id;
+																			//print_r($package_module); 
+
+																			// $package_module[$td->package_id][$row->module_id];
+
+
+																			  ?>
+
+
+																			<option
+
+																			<?php
+																				$status = 0;
+																				if(isset($package_module[$td->package_id][$row->module_id]))
+
+																					if($package_module[$td->package_id][$row->module_id]==1)
+																					{
+																								echo 'selected ';
+																								$status = 1; 
+																					}
+
+																			?>
+																			 value='{{$td->package_id.','.$row->module_id.','.$status}}'>{{$row->name}}
+
+
+																			</option>
+																		
+																<?php 
+																		}
+																		*/
+																?>
+
+																<?php 
+																		
+																	foreach($module as $row ) 
+																		{
+																?>
+																			<?php 
+
+																			//echo $td->package_id; 
+																			//echo $row->module_id;
+																			//print_r($package_module); 
+
+																			// $package_module[$td->package_id][$row->module_id];
+
+
+																			  ?>
+
+
+																			<option
+
+																			<?php
+																				$status = 0;
+																				if(isset($package_module[$td->package_id][$row->module_id]))
+
+																					if($package_module[$td->package_id][$row->module_id]==1)
+																					{
+																								echo 'selected ';
+																								$status = 1; 
+																					}
+
+																			?>
+																			 value='{{$row->module_id}}'>{{$row->name}}
+
+																			<?php /*  value='{{$td->package_id.','.$row->module_id.','.$status}}'>{{$row->name}} */ ?>
+
+
+																			</option>
+																		
+																<?php 
+																		}
+																?>
+
                                     						</select>
                                     					</td>
 													@else 
@@ -162,6 +246,7 @@
 			
 			<!-- functionality JS -->
     		<script type="text/javascript" src="{{ URL::asset('public/js/package.js') }}"></script>
+   
 			
 	@endsection
 	

@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\SuperAdministrator;
 use App\Models\Module;
 use App\Models\Package;
+use App\Models\PackageModule;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use	Illuminate\Log\Logger;
 
 class PackageController extends Controller
 {
@@ -39,6 +41,26 @@ class PackageController extends Controller
 		];
 
 		$data['package'] = Package::where([])->get();
+		$package_module_tmp = PackageModule::where([])->get();
+		$data['module'] = Module::where('status', 1)->get();
+
+		foreach ($package_module_tmp as $row )
+			$package_module[$row->package_id][$row->module_id] = $row->status; 
+		
+
+		
+		$data['package_module']  = $package_module; 
+
+
+
+
+		
+		//print_r($package_module); 
+
+	
+		$data['package_module']  = $package_module; 
+
+
 		return view('package.packages',$data);
     }
 
@@ -104,11 +126,35 @@ class PackageController extends Controller
                 ]);
 	}
 
-
+	
 	public function savePackageModules(Request $request)
 	{
-		dd($request->all());
-		
+		if(isset($request['id'])) {
+			PackageModule::whereIn('module_id', $request->id)->where('package_id', $request['package_id'])->update(['status' => 1]);
+			PackageModule::whereNotIn('module_id', $request->id)->where('package_id', $request['package_id'])->update(['status' => 0]);
+		}else{
+				PackageModule::where('package_id', $request['package_id'])
+					          ->update(['status' => 0]);
+		}	
 
+		return response()->json([
+                    'message' => 'Modules has been updated.'
+                ]);
+	}	
+
+	public function getSavedModules()
+	{
+		$moduleData = PackageModule::where('status', 1)->get();
+		foreach ($moduleData as $key => $value) {
+			$module[] = [
+				'id' 					=> $value->module_id,
+				'package_module_id' 	=> $value->package_module_id,
+				'package_id' 			=> $value->package_id
+			];	
+		}
+
+		return response()->json([
+            'data' => $module
+        ]);
 	}
 }

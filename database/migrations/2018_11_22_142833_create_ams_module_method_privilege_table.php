@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAmsSubModuleTable extends Migration
+class CreateAmsModuleMethodPrivilegeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateAmsSubModuleTable extends Migration
      */
     public function up()
     {
-        Schema::create('ams_sub_module', function (Blueprint $table) {
-            $table->increments('sub_module_id');
+        Schema::create('ams_module_method_privilege', function (Blueprint $table) {
+            $table->increments('ams_module_method_privilege_id');
+            $table->integer('group_id');
             $table->integer('module_id');
-            $table->string('name', 250);
-            $table->string('description', 250);
+            $table->integer('method_id');
+            $table->integer('status')->default(0);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
-            $table->string('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +34,6 @@ class CreateAmsSubModuleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ams_sub_module');
+        Schema::dropIfExists('ams_module_method_privilege');
     }
 }

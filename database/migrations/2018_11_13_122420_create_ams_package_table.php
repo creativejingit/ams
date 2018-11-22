@@ -23,7 +23,7 @@ class CreateAmsPackageTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
-            $table->string('status')->default('1');
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
