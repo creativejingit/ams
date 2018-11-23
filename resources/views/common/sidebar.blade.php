@@ -35,6 +35,19 @@
                             <span>Package Creation</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ url('groups/view-group') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Groups Creation</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url('organization/view-organization') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Organization Creation</span>
+                        </a>
+                    </li>
                     <li class="header">Main</li>
                     <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">

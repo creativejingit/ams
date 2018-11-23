@@ -35,6 +35,21 @@ Route::get('package/get-modules', 'PackageController@getModules');
 Route::get('package/get-saved-modules', 'PackageController@getSavedModules');
 Route::post('package/save-package-modules', 'PackageController@savePackageModules');
 
+// Groups
+Route::get('groups/view-group', 'GroupController@viewGroup');
+Route::get('groups/add-group', 'GroupController@add');
+Route::get('groups/edit/{id?}', 'GroupController@edit');
+Route::post('groups/save/{id?}', 'GroupController@save');
+Route::get('groups/delete/{id}','GroupController@remove');
+
+// Organizations
+Route::get('organization/view-organization', 'OrganizationController@viewOrganization');
+Route::get('organization/add-organization', 'OrganizationController@add');
+Route::get('organization/edit/{id?}', 'OrganizationController@edit');
+Route::post('organization/save/{id?}', 'OrganizationController@save');
+Route::get('organization/delete/{id}','OrganizationController@remove');
+
+
 
 
 

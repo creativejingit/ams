@@ -16,9 +16,9 @@ class CreateAmsOrganizationTable extends Migration
         Schema::create('ams_organization', function (Blueprint $table) {
             $table->increments('organization_id');
             $table->string('name', 250);
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
