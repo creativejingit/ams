@@ -80,6 +80,7 @@ class OrganizationController extends Controller
 		}
 
 		$data = $request->all();
+		$data['administrator_id'] = isset($userData->administrator_id) ? $userData->administrator_id : 1;
 		$data['created_by'] = isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
 		$data['updated_by'] = isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
 		$savePackage = Organization::findOrNew($id);

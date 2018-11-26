@@ -323,6 +323,7 @@ class ComposerStaticInitb6acd57d9360ba14b3d1e906146024a4
     );
 
     public static $classMap = array (
+        'AdministratorTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AdministratorTableSeeder.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
@@ -362,6 +363,8 @@ class ComposerStaticInitb6acd57d9360ba14b3d1e906146024a4
         'App\\Modules\\Admin\\Models\\Admin' => __DIR__ . '/../..' . '/app/Modules/Admin/Models/Admin.php',
         'App\\Modules\\Admin\\Models\\Payment' => __DIR__ . '/../..' . '/app/Modules/Admin/Models/Payment.php',
         'App\\Modules\\Admin\\Models\\User' => __DIR__ . '/../..' . '/app/Modules/Admin/Models/User.php',
+        'App\\Modules\\Administrator\\Controllers\\AdministratorController' => __DIR__ . '/../..' . '/app/Modules/Administrator/Controllers/AdministratorController.php',
+        'App\\Modules\\Administrator\\Models\\Administrator' => __DIR__ . '/../..' . '/app/Modules/Administrator/Models/Administrator.php',
         'App\\Modules\\Frontend\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/Modules/Frontend/Controllers/IndexController.php',
         'App\\Modules\\Frontend\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Modules/Frontend/Controllers/LoginController.php',
         'App\\Modules\\Frontend\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/app/Modules/Frontend/Controllers/RegisterController.php',

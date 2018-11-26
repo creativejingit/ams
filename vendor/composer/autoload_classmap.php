@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AdministratorTableSeeder' => $baseDir . '/database/seeds/AdministratorTableSeeder.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
@@ -45,6 +46,8 @@ return array(
     'App\\Modules\\Admin\\Models\\Admin' => $baseDir . '/app/Modules/Admin/Models/Admin.php',
     'App\\Modules\\Admin\\Models\\Payment' => $baseDir . '/app/Modules/Admin/Models/Payment.php',
     'App\\Modules\\Admin\\Models\\User' => $baseDir . '/app/Modules/Admin/Models/User.php',
+    'App\\Modules\\Administrator\\Controllers\\AdministratorController' => $baseDir . '/app/Modules/Administrator/Controllers/AdministratorController.php',
+    'App\\Modules\\Administrator\\Models\\Administrator' => $baseDir . '/app/Modules/Administrator/Models/Administrator.php',
     'App\\Modules\\Frontend\\Controllers\\IndexController' => $baseDir . '/app/Modules/Frontend/Controllers/IndexController.php',
     'App\\Modules\\Frontend\\Controllers\\LoginController' => $baseDir . '/app/Modules/Frontend/Controllers/LoginController.php',
     'App\\Modules\\Frontend\\Controllers\\RegisterController' => $baseDir . '/app/Modules/Frontend/Controllers/RegisterController.php',

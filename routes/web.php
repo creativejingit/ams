@@ -41,6 +41,7 @@ Route::get('groups/add-group', 'GroupController@add');
 Route::get('groups/edit/{id?}', 'GroupController@edit');
 Route::post('groups/save/{id?}', 'GroupController@save');
 Route::get('groups/delete/{id}','GroupController@remove');
+Route::get('groups/group-modules','GroupController@groupsModule');
 
 // Organizations
 Route::get('organization/view-organization', 'OrganizationController@viewOrganization');

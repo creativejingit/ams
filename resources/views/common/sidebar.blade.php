@@ -43,6 +43,14 @@
                     </li>
 
                     <li>
+                        <a href="{{ url('groups/group-modules') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Group Modules</span>
+                        </a>
+                    </li>
+
+
+                    <li>
                         <a href="{{ url('organization/view-organization') }}">
                             <i class="fab fa-wpforms"></i>
                             <span>Organization Creation</span>
