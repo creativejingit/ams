@@ -8,6 +8,8 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SuperAdministrator as SuperAdministrator;
+use App\Models\Administrator as Administrator;
+use App\Models\User as User;
 use Config;
 use Carbon\Carbon;
 use Session;
@@ -47,9 +49,12 @@ class AuthController extends IndexController
         
 		$userData 	=  Auth::user();
 		$data = [
-				  'type' 			        => 'super_administrator',
-                  'remember_token'          => $userData->remember_token,
-				  'super_administrator_id' 	=> $userData->super_administrator_id
+                    'type' 			          => 'super_administrator',
+                    'remember_token'          => $userData->remember_token,
+                    'super_administrator_id'  => $userData->super_administrator_id,
+                    'theme_setting'           => isset($userData->theme_setting) ? 
+                                                 $userData->theme_setting :    
+                                                   '{"sidebar_menu_colors": "btn-sidebar-light","skins": "purple"}',
 				];
 
 		Session::put('user_data', $data);
@@ -76,15 +81,14 @@ class AuthController extends IndexController
                 'errors' => $validator->errors()
             ]); 
         } else {
-
             if (Auth::attempt(array('email' => $email, 'password' => $password))) {
                 // Success
                 $user                  = auth()->user();
-                if($user_type == 1) {
+                if($user_type == \Config::get('constants.user_types.SUPER_ADMINISTRATOR')) {
                     $user = SuperAdministrator::find($user->super_administrator_id);
-                }elseif($user_type == 2) {
+                }elseif($user_type == \Config::get('constants.user_types.ADMINISTRATOR')) {
                     $user = Administrator::find($user->super_administrator_id);
-                }elseif($user_type == 3) {
+                }elseif($user_type == \Config::get('constants.user_types.USER')) {
                     $user = User::find($user->super_administrator_id);
                 }
 
@@ -92,7 +96,7 @@ class AuthController extends IndexController
                 $user->save();
 
                 return response()->json([
-                    'auth' => false,
+                    // 'auth' => false,
                     'status' => '1',
                     'redirect_url' => url('/dashboard'),
                     'errors' => 'Success! logged in.'
@@ -119,7 +123,7 @@ class AuthController extends IndexController
 
         $validator =  Validator::make($request->all(), [
             'username'      => 'required|string|max:255',
-            'email'         => 'required|string|email|max:255|unique:users',
+            'email'         => 'required|string|email|max:255|unique:ams_super_administrator,email|unique:ams_user,email|unique:ams_administrator,email',
             'password'      => 'required|string|min:6|required_with:password_conf|same:password_conf',
             'password_conf' => 'required|string|min:6',
         ]);
@@ -151,6 +155,22 @@ class AuthController extends IndexController
                 'message' => 'Success! You are registered with the system.'
             ]);
         }
+    }
+
+    public function saveUserTheme(Request $request)
+    {
+        $userData   =  Auth::user();
+        $userId = $userData->super_administrator_id;
+
+        $superAdmin = SuperAdministrator::find($userId);    
+
+        $arr = array(
+          'sidebar_menu_colors' => $request->sidebar_menu_colors,
+          'skins' => $request->skins,
+        );
+
+        $superAdmin->theme_setting = $arr; 
+        $superAdmin->save();
     }
 
 

@@ -100,4 +100,66 @@
 	        }
 	    });
 
+	    $(".btn-sidebar-dark").on('click', function (e) {
+	    	$(this).addClass('active');
+	    	let sidebarmenuColor = $(this).data('menu-color');
+	    	let themeColor = $('.skin-selected').find('.actived').data('theme');
+	    	// console.log(themeColor, sidebarmenuColor);
+
+	    	$.ajax({
+                url: APP_URL + "/save-user-theme",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    sidebar_menu_colors: sidebarmenuColor,
+                    skins: themeColor,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    
+                }
+            });
+	    });
+
+	    $(".btn-sidebar-light").on('click', function (e) {
+	    	$(this).addClass('active');
+	    	let sidebarmenuColor = $(this).data('menu-color');
+	    	let themeColor = $('.skin-selected').find('.actived').data('theme');
+	    	// console.log(themeColor, sidebarmenuColor);
+
+	    	$.ajax({
+                url: APP_URL + "/save-user-theme",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    sidebar_menu_colors: sidebarmenuColor,
+                    skins: themeColor,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    
+                }
+            });
+	    });
+
+	    $('.skin-selected').on('click', function (e) {
+	    	let sidebarmenuColor = $('.btn-sidebar-menu-color').data('menu-color')||'btn-sidebar-light';
+	    	let themeColor = $(this).find('.actived').data('theme');
+	    	// console.log(themeColor, sidebarmenuColor);
+
+	    	$.ajax({
+                url: APP_URL + "/save-user-theme",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    sidebar_menu_colors: sidebarmenuColor,
+                    skins: themeColor,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    
+                }
+            });
+	    });
+
 	});

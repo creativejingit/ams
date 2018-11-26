@@ -21,12 +21,13 @@ class CreateAmsUserTable extends Migration
             $table->string('name', 250);
             $table->string('email');
             $table->string('password');
+            $table->text('theme_setting');
             $table->string('activation_password', 250);
             $table->enum('activation_status', ['active', 'inactive']);
             $table->rememberToken();
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

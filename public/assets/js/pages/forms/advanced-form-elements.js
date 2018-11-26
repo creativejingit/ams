@@ -1,17 +1,20 @@
 'use strict';
 $(function () {
-    $('.colorpicker').colorpicker();
+
+    //$('.colorpicker').colorpicker();
     
     initBasicSelect();
 	initGroupSelect();
-	initMultiSelect();
+	// initMultiSelect();
 	initImageSelect();
 
+	/*
     //Dropzone
     Dropzone.options.frmFileUpload = {
         paramName: "file",
         maxFilesize: 2
     };
+    
 
     //Masked Input ============================================================================================================================
     var $demoMaskedInput = $('.demo-masked-input');
@@ -48,9 +51,10 @@ $(function () {
     //Serial Key
     $demoMaskedInput.find('.key').inputmask('****-****-****-****', { placeholder: '____-____-____-____' });
     //===========================================================================================================================================
-
+	
     //Multi-select
     $('#optgroup').multiSelect({ selectableOptgroup: true });
+    */
 
 });
 
@@ -104,18 +108,19 @@ function initGroupSelect(){
 	$('#sel-grp').append("</optgroup >");
 	/* With OptGroups select end*/
 }
-function initMultiSelect(){
-	/* simple with multi select */
-	$('#multisel').formSelect();
-	var data=[{id:1,name:"Option 1"},{id:2,name:"Option 2"},{id:3,name:"Option 3"}];
+// function initMultiSelect(){
+// 	/* simple with multi select */
+// 	$('#multisels').formSelect();
+// 	var data=[{id:1,name:"Option 1"},{id:2,name:"Option 2"},{id:3,name:"Option 3"}];
 
-	var Options="";
-	$.each(data, function(i, val){ 
-		$('#multisel').append("<option value='"+val.id+"'>"+val.name+"</option>");
-		$('#multisel').formSelect();
-	});
-	/* end simple with multi select */
-}
+// 	var Options="";
+// 	$.each(data, function(i, val){ 
+// 		$('#multisel').append("<option value='"+val.id+"'>"+val.name+"</option>");
+// 		$('#multisel').formSelect();
+// 	});
+// 	/* end simple with multi select */
+// }
+
 function initImageSelect(){
 	/* select with image */
 	$('#imgsel').formSelect();

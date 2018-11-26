@@ -20,9 +20,10 @@ class CreateAmsPackageTable extends Migration
             $table->enum('package_type', ['module', 'package']);    
             $table->integer('organization_no');    
             $table->integer('users_no');
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -19,9 +19,9 @@ class CreateAmsPrivelegeTable extends Migration
             $table->integer('module_id');
             $table->integer('feature_id');
             $table->integer('status')->default(0);
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

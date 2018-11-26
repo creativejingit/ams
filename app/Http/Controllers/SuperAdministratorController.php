@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use  App\Models\SuperAdministrator;
+use App\Models\SuperAdministrator;
 
 class SuperAdministratorController extends Controller
 {
@@ -42,7 +42,7 @@ class SuperAdministratorController extends Controller
 	}
 
 	public function edit($id = null)
-	{
+	{	
 		$super_administrator = SuperAdministrator::findOrNew($id);
 		$data['super_administrator'] = $super_administrator;
 		$data['id'] = $id;
@@ -52,12 +52,18 @@ class SuperAdministratorController extends Controller
 
 	public function save(Request $request, $id = null)
 	{
+		$hasPassword = SuperAdministrator::findOrFail($id, array('password'));
+
 		$rules = [
 		            "name"  	=> "required",
 					"company"  	=> "required",
-					"email"  	=> "required|email",
-					"password"  => "required|min:6",
 				];
+
+		if($hasPassword->password == null){
+			$rules = [
+				"password"  => "required|min:6",
+			];
+		}
 
 		$validator = \Validator::make($request->all(), $rules,[
 			//"name.required"=>"Select User Type"
@@ -68,6 +74,7 @@ class SuperAdministratorController extends Controller
 		}
 
 		$data = $request->all();
+		$data['password'] = \Hash::make($data['password']);
 		$super_administrator = SuperAdministrator::findOrNew($id);
 		$super_administrator->fill($data);
 		

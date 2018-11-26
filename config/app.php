@@ -236,6 +236,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Helper' => App\Utils\Helper::class,
         'Setting' => App\Modules\Admin\Models\Setting::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
     ],
 	
 	

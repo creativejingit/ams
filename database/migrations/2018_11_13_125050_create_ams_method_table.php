@@ -16,11 +16,13 @@ class CreateAmsMethodTable extends Migration
         Schema::create('ams_method', function (Blueprint $table) {
             $table->increments('method_id');
             $table->integer('module_id');
+            $table->integer('sub_module_id');
             $table->string('name', 250);
             $table->string('url');
-            $table->integer('created_by');
-            $table->integer('updated_by');
-            $table->integer('deleted_by');
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
