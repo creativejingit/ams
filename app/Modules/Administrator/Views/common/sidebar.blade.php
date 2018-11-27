@@ -30,15 +30,9 @@
                         </div>
                     </li>
                     <li>
-                        <a href="{{ url('admin/company-creation') }}">
+                        <a href="{{ url('package/view-package') }}">
                             <i class="fab fa-wpforms"></i>
-                            <span>Company Creation Form</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('admin/client-creation') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Client Creation Form</span>
+                            <span>Package Creation</span>
                         </a>
                     </li>
                     <li>
