@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Administrator;
 return [
 
     /*
@@ -46,9 +46,13 @@ return [
             'provider' => 'ams_super_administrator',
         ],
 
-        'admin' => [
+        'super_admin' => [
             'driver' => 'session',
             'provider' => 'ams_super_administrator',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'ams_administrator',
         ],
     ],
 
@@ -73,6 +77,10 @@ return [
         'ams_super_administrator' => [
             'driver' => 'eloquent',
             'model' =>  App\ModelAmsSuperAdministrator::class,
+        ],
+        'ams_administrator' => [
+            'driver' => 'eloquent',
+            'model' =>  Administrator::class,
         ],
         // 'admins' => [
         //     'driver' => 'eloquent',

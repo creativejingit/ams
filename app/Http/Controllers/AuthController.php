@@ -46,15 +46,24 @@ class AuthController extends IndexController
     // dashboard view
     public function viewDashboard() 
     {	
-        
-		$userData 	=  Auth::user();
+
+		$userData 	= Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
+
+        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+            $type = 'super_administrator';
+            $id = $userData->super_administrator_id;
+        }else{
+            $type = 'administrator';
+            $id = $userData->administrator_id;
+        }
+
 		$data = [
-                    'type' 			          => 'super_administrator',
+                    'type' 			          => $type,
                     'remember_token'          => $userData->remember_token,
-                    'super_administrator_id'  => $userData->super_administrator_id,
+                    'super_administrator_id'  => $id,
                     'theme_setting'           => isset($userData->theme_setting) ? 
                                                  $userData->theme_setting :    
-                                                   '{"sidebar_menu_colors": "btn-sidebar-light","skins": "purple"}',
+                                                   '{ "sidebar_menu_colors": "btn-sidebar-light","skins": "purple" }',
 				];
 
 		Session::put('user_data', $data);
@@ -81,17 +90,10 @@ class AuthController extends IndexController
                 'errors' => $validator->errors()
             ]); 
         } else {
-            if (Auth::attempt(array('email' => $email, 'password' => $password))) {
-                // Success
-                $user                  = auth()->user();
-                if($user_type == \Config::get('constants.user_types.SUPER_ADMINISTRATOR')) {
-                    $user = SuperAdministrator::find($user->super_administrator_id);
-                }elseif($user_type == \Config::get('constants.user_types.ADMINISTRATOR')) {
-                    $user = Administrator::find($user->super_administrator_id);
-                }elseif($user_type == \Config::get('constants.user_types.USER')) {
-                    $user = User::find($user->super_administrator_id);
-                }
-
+            if ($user_type == 1 && Auth::guard('super_admin')->attempt(['email' => $email, 'password' => $password])) {
+                // Super Admin Here                
+                $user                  = Auth::guard('super_admin')->user();
+                $user = SuperAdministrator::find($user->super_administrator_id);
                 $user->remember_token  = str_random(30);
                 $user->save();
 
@@ -101,8 +103,22 @@ class AuthController extends IndexController
                     'redirect_url' => url('/dashboard'),
                     'errors' => 'Success! logged in.'
                 ]); 
+                
+            } elseif ($user_type == 2 && Auth::guard('admin')->attempt(['email' => $email, 'password' => $password])) {
+                // Admin Here
+                $user                  = Auth::guard('admin')->user();
+                $user = Administrator::find($user->administrator_id);
+                $user->remember_token  = str_random(30);
+                $user->save();
 
-            } else{
+                return response()->json([
+                    // 'auth' => false,
+                    'status' => '1',
+                    'redirect_url' => url('/admin/dashboard'),
+                    'errors' => 'Success! logged in.'
+                ]); 
+                
+            }else{
                 return response()->json([
                     'status' => '0',
                     'redirect_url' => url('/login'),
