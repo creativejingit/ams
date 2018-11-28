@@ -84,6 +84,14 @@
 														<td>{{$td->$key}}</td>
 													@endforeach
 													<td class="" style="width: 12%;">
+
+															<a href="{{url('groups/group-modules/'.$td->group_id)}}"  data-row="trow_{{$id}}">
+															
+																	<button type="button" class="btn btn-info waves-effect">
+																		<i class="material-icons">modules</i>
+																	</button>
+																	
+															</a>
 															 
 															<a href="{{url('groups/edit/'.$td->group_id)}}"  data-row="trow_{{$id}}">
 															

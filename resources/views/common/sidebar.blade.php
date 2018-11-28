@@ -38,40 +38,40 @@
                     <li>
                         <a href="{{ url('admin/vendor-creation') }}">
                             <i class="fab fa-wpforms"></i>
-                            <span>Vendor Creation Form</span>
+                            <span>Vendor</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('admin/company-creation') }}">
                             <i class="fab fa-wpforms"></i>
-                            <span>Company Creation Form</span>
+                            <span>Company</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('admin/client-creation') }}">
                             <i class="fab fa-wpforms"></i>
-                            <span>Client Creation Form</span>
+                            <span>Client</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('groups/view-group') }}">
                             <i class="fab fa-wpforms"></i>
-                            <span>Groups Creation</span>
+                            <span>Groups</span>
                         </a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="{{ url('groups/group-modules') }}">
                             <i class="fab fa-wpforms"></i>
                             <span>Group Modules</span>
                         </a>
-                    </li>
+                    </li> -->
 
 
                     <li>
                         <a href="{{ url('organization/view-organization') }}">
                             <i class="fab fa-wpforms"></i>
-                            <span>Organization Creation</span>
+                            <span>Organization</span>
                         </a>
                     </li>
                     <li class="header">Main</li>

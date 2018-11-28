@@ -17,7 +17,7 @@ class CreateAmsPrivelegeTable extends Migration
             $table->increments('privilege_id');
             $table->integer('group_id');
             $table->integer('module_id');
-            $table->integer('feature_id');
+            $table->integer('method_id');
             $table->integer('status')->default(0);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

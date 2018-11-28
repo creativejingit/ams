@@ -44,8 +44,8 @@
 			
 <?php 
 
-		print_r($_REQUEST['modules']);
-		print_r($_REQUEST['methods']);
+		// print_r($_REQUEST['module']);
+		// print_r($_REQUEST['method']);
 ?>
 
 				<div class="row clearfix">
@@ -68,9 +68,12 @@
 							</div>
 							<div class="body">
 								<div class="table-responsive">
-										<form action="#" method="get" />
+										<form method="POST" action="{{ url('groups/group-modules') }}/{!! Request::segment(3) !!}"  />
 
-										
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+									<input type="hidden" name="group_id" value="{!! Request::segment(3) !!}">
+									
 									<table id="tableExport" class="display table  table-bordered table-striped table-hover table-checkable order-column m-t-20 width-per-500">
 										<thead>
 											<tr>

@@ -10,6 +10,9 @@ use App\Models\Group;
 use App\Models\Organization;
 use App\Models\Package;
 use App\Models\PackageModule;
+use App\Models\Method;
+use App\Models\Privilege;
+use App\Models\Administrator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use	Illuminate\Log\Logger;
@@ -88,9 +91,29 @@ class GroupController extends Controller
 		$data['updated_by'] = isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
 		$saveGroup = Group::findOrNew($id);
 		$saveGroup->fill($data);
-		
-	
 		$saveGroup->save();
+
+
+		// save modules into priveleges table.
+		$org 				= Organization::find($data['organization'])->get();
+		$admin 				= Administrator::find($org[0]->administrator_id)->get();
+		$package 			= Package::find($admin[0]->package_id)->get();
+		$packageModules 	= PackageModule::find($package[0]->package_id)->get();
+		$methods 			= Method::find($packageModules[0]->module_id)->get();
+		
+		foreach ($packageModules as $key => $value) {
+			$dataPR['group_id'] 	= $saveGroup->group_id;
+			$dataPR['module_id'] 	= $value->module_id;
+			$dataPR['feature_id'] 	= $value->package_module_id;
+			$dataPR['status'] 		= 0;
+			$dataPR['created_by'] 	= isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
+			$dataPR['updated_by'] 	= isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
+
+			$savePrivelege = Privilege::findOrNew($id);
+			$savePrivelege->fill($dataPR);
+			$savePrivelege->save();
+		}
+
 		$action = ($id) ? 'updated.' : 'created.';
 		return redirect('groups/view-group')->with('success',$saveGroup->name.' Group has been '.$action);
 	}
@@ -109,10 +132,22 @@ class GroupController extends Controller
 		]);		
 	}
 
-	public function groupsModule()
+	public function groupsModule(Request $request, $id = null)
 	{
+		if($request->isMethod('post'))
+		{
 
-		$data['module'] = DB::table('ams_module')
+			Privilege::whereIn('feature_id', $request->methods)->where('group_id', $request->group_id)->where('module_id', $request->modules)->update(['status' => 1]);
+
+			Privilege::whereNotIn('feature_id', $request->methods)->where('group_id', $request->group_id)->where('module_id', $request->modules)->update(['status' => 0]);
+
+			return response()->json([
+                    'message' => 'Group modules has been updated.'
+                ]);
+
+
+		}else{
+			$data['module'] = DB::table('ams_module')
          
             ->join('ams_package_module', 'ams_package_module.module_id', '=', 'ams_module.module_id')
             ->where('ams_package_module.Package_id','1')
@@ -123,11 +158,13 @@ class GroupController extends Controller
 		//	 dd($data['modules']);
 
 
-		$data['method'] = DB::table('ams_method')
+			$data['method'] = DB::table('ams_method')
 			
-             ->whereIn('ams_method.module_id',[1,2])
+            ->whereIn('ams_method.module_id',[1,2])
             ->get();
-
+	
+		}
+		
 
 
 
