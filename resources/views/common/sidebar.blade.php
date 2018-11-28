@@ -30,6 +30,18 @@
                         </div>
                     </li>
                     <li>
+                        <a href="{{ url('admin/foreign-exchange-rate') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Foreign Exchange Rate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('admin/vendor-creation') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Vendor Creation Form</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ url('admin/company-creation') }}">
                             <i class="fab fa-wpforms"></i>
                             <span>Company Creation Form</span>

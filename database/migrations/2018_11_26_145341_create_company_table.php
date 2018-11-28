@@ -18,13 +18,13 @@ class CreateCompanyTable extends Migration
             $table->string('company_name', 250);
             $table->dateTime('date_of_formation');
             $table->string('nature_of_business',250);
-            $table->integer('ntn');
-            $table->integer('sstn');
-            $table->integer('point_of_contact');
+            $table->string('ntn');
+            $table->string('sstn');
+            $table->string('point_of_contact');
             $table->string('address',250);
             $table->string('email',250);
             $table->string('website',250);
-            $table->integer('phone_no');
+            $table->string('phone_no');
             $table->string('logo',250);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

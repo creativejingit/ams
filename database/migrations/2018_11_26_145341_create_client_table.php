@@ -21,8 +21,8 @@ class CreateClientTable extends Migration
             $table->string('contact_no_of_poc',250);
             $table->string('address',250);
             $table->string('email',250);
-            $table->integer('ntn');
-            $table->integer('sales_tax_no');
+            $table->string('ntn');
+            $table->string('sales_tax_no');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

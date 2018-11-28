@@ -102,7 +102,7 @@ class CompanyCreationController extends AdministratorController
         $file = $request->file('logo');
 
         $filename = str_random(10).'-'.$userData->administrator_id.'-'.$file->getClientOriginalName();
-        $file->move(public_path('/uploads'),$filename);
+        $file->move(public_path_images('/uploads'),$filename);
 
         $data['created_by'] = $userData->administrator_id;
         $data['updated_by'] = $userData->administrator_id;

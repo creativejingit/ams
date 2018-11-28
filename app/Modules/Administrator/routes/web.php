@@ -19,4 +19,21 @@ Route::group(['module' => 'Administrator', 'middleware' => ['web','guest'], 'nam
 	Route::post('admin/client-creation/save/{id?}', 'ClientController@save');
 	Route::get('admin/client-creation/delete/{id}','ClientController@remove');
 
+
+    // Vendor
+    Route::get('admin/vendor-creation', 'VendorController@index');
+    Route::get('admin/add-vendor-creation', 'VendorController@add');
+
+    Route::get('admin/vendor-creation/edit/{id?}', 'VendorController@edit');
+    Route::post('admin/vendor-creation/save/{id?}', 'VendorController@save');
+    Route::get('admin/vendor-creation/delete/{id}','VendorController@remove');
+
+
+    // FOREIGN EXCHANGE RATE
+    Route::get('admin/foreign-exchange-rate', 'ForeignExchangeRateController@index');
+    Route::get('admin/add-foreign-exchange-rate', 'ForeignExchangeRateController@add');
+
+    Route::get('admin/foreign-exchange-rate/edit/{id?}', 'ForeignExchangeRateController@edit');
+    Route::post('admin/foreign-exchange-rate/save/{id?}', 'ForeignExchangeRateController@save');
+    Route::get('admin/foreign-exchange-rate/delete/{id}','ForeignExchangeRateController@remove');
 });
