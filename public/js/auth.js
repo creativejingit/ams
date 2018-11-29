@@ -55,8 +55,11 @@
 	        let email	 		= $(".email").val();
 	        let password 		= $(".pass").val();
 	        let password_conf 	= $(".pass2").val();
+	        let package 		= $(".user_package :selected").val();
 
-	        if (email == '' || password == '') {
+	        console.log("package",package);
+
+	        if (email == '' || password == '' || username == '' || password_conf == '' || package == '') {
 	    		$('.error_message').css('display', 'block');
                 $('.error_message').html('<strong> Error! </strong> Please Fill Incomplete Fields.');
 	        } else {
@@ -68,7 +71,9 @@
 	                    username: username,
 	                    email: email,
 	                    password: password,
-	                    password_conf: password_conf
+	                    password_conf: password_conf,
+	                    package: package,
+	                    _token: $('meta[name="csrf-token"]').attr('content')
 	                },
 	                success: function (data) {
 	                    if (data.status == 0) {

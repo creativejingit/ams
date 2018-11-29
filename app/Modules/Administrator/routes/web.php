@@ -36,4 +36,12 @@ Route::group(['module' => 'Administrator', 'middleware' => ['web','guest'], 'nam
     Route::get('admin/foreign-exchange-rate/edit/{id?}', 'ForeignExchangeRateController@edit');
     Route::post('admin/foreign-exchange-rate/save/{id?}', 'ForeignExchangeRateController@save');
     Route::get('admin/foreign-exchange-rate/delete/{id}','ForeignExchangeRateController@remove');
+
+    // USER
+    Route::get('admin/user', 'UserController@index');
+    Route::get('admin/add-user', 'UserController@add');
+
+    Route::get('admin/user/edit/{id?}', 'UserController@edit');
+    Route::post('admin/user/save/{id?}', 'UserController@save');
+    Route::get('admin/user/delete/{id}','UserController@remove');
 });

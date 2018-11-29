@@ -44,7 +44,15 @@
                                 <i class="material-icons focus-input1001">person</i>
                             </div>
                         </div>
+
+                        <select class="form-control user_package">
+                                <option value="">Select Package</option>
+                            @foreach($packages as $pk)
+                                <option value="{{$pk->package_id}}">{{$pk->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    <br>
                     {{--<div class="contact100-form-checkbox">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -57,6 +65,7 @@
                     </div>--}}
                     <div class="alert alert-danger hidden error_message" style="display:none">
                     </div>
+                    <br>
                     <div class="container-login100-form-btn">
                         <input type="button" name="button" style="background-color: #fff;" class="login100-form-btn sign-up-btn" value="Sign Up" />
                     </div>

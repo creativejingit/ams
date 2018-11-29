@@ -287,7 +287,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <a href="{{ url('/logout') }}">
                                             <i class="material-icons">power_settings_new</i>Logout
                                         </a>
                                     </li>

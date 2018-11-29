@@ -17,7 +17,7 @@
 										
 									</li>
 									<li class="breadcrumb-item active">
-										<a href="{{url('/super-administrator')}}"> Super Administrator </a> 
+										<a href="{{url('package/view-package')}}"> USER </a> 
 										
 									</li>
 							</ul>
@@ -48,12 +48,12 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="card">
 							<div class="header">
-								<h2><strong>Super Administrator</strong></h2>
+								<h2><strong>USER</strong></h2>
 								<div class="header-dropdown m-r--5">
 									<div class="row clearfix demo-icon-container">
 										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 											<div class="demo-google-material-icon">
-												<a href="{{url('super-administrator/add')}}">
+												<a href="{{url('admin/add-user')}}">
 													<i class="material-icons">add_box</i>
 													<span class="icon-name"></span>
 												</a>
@@ -77,16 +77,16 @@
 										</thead>
 										
 										<tbody>
-										   
+
 												@php($id = 1)
-												@foreach($super_administrator as $td)
+												@foreach($user as $td)
 												<tr id="trow_{{$id}}">
 													@foreach($grid['columns'] as $key=>$value)
-													<td>{{$td->$key}}</td>
+														<td>{{$td->$key}}</td>
 													@endforeach
 													<td class="" style="width: 12%;">
 															 
-															<a href="{{url('super-administrator/edit/'.$td->super_administrator_id)}}"  data-row="trow_{{$id}}">
+															<a href="{{url('admin/user/edit/'.$td->user_id)}}"  data-row="trow_{{$id}}">
 															
 																	<button type="button" class="btn btn-info waves-effect">
 																		<i class="material-icons">edit</i>
@@ -96,15 +96,15 @@
 														
 															<button class="btn btn-info waves-effect js-sweetalert"
 																
-																		data-id="{{$td->super_administrator_id}}" 
-																		data-url="{{url('super-administrator/delete')}}"  
+																		data-id="{{$td->user_id}}" 
+																		data-url="{{url('admin/user/delete')}}"  
 																		data-row="trow_{{$id}}"
 																		data-type="ajax-loader"
 																> 
 																<i class="material-icons">delete</i>
-															</button>
-																	
+															</button>		
 													</td>
+
 												</tr>
 												@php($id++)
 												@endforeach
@@ -148,7 +148,11 @@
 			<script src="{{ asset ('public/assets/js/buttons.html5.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/tables/jquery-datatable.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/ui/dialogs.js') }}"></script>
+			<script src="{{ asset ('public/assets/js/pages/forms/advanced-form-elements.js') }}"></script>
 			
+			<!-- functionality JS -->
+    		<script type="text/javascript" src="{{ URL::asset('public/js/package.js') }}"></script>
+   
 			
 	@endsection
 	

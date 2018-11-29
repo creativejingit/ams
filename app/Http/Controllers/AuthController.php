@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SuperAdministrator as SuperAdministrator;
 use App\Models\Administrator as Administrator;
+use App\Models\Package as Package;
 use App\Models\User as User;
 use Config;
 use Carbon\Carbon;
@@ -41,7 +42,8 @@ class AuthController extends IndexController
     // register view 
     public function viewRegister() 
     {
-        return view('auth.register');
+        $data['packages'] = Package::get();
+        return view('auth.register', $data);
     }
     // dashboard view
     public function viewDashboard() 
@@ -136,12 +138,14 @@ class AuthController extends IndexController
         $email                  = $request->email;
         $password               = $request->password;
         $password_conf          = $request->password_conf;
+        $package                = $request->package;
 
         $validator =  Validator::make($request->all(), [
             'username'      => 'required|string|max:255',
             'email'         => 'required|string|email|max:255|unique:ams_super_administrator,email|unique:ams_user,email|unique:ams_administrator,email',
             'password'      => 'required|string|min:6|required_with:password_conf|same:password_conf',
             'password_conf' => 'required|string|min:6',
+            'package'       => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -151,15 +155,20 @@ class AuthController extends IndexController
                 'errors' => $validator->errors()
             ]); 
         }else{
-            return ModelAmsSuperAdministrator::create([
+            Administrator::create([
+                'privilege_id'      => 1,
+                'package_id'        => $package,
                 'name'              => $username,
+                'company'           => 1,
                 'email'             => $email,
                 'password'          => \Hash::make($password),
+                'theme_setting'     => '{"sidebar_menu_colors": "btn-sidebar-light","skins": "purple" }',
+                'activation_password'=> \Hash::make($password),
+                'activation_status' => 1,
                 'remember_token'    => bin2hex(random_bytes(20)),
-                'is_superAdmin'     => 0,
-                'is_admin'          => 0,
-                'is_user'           => 1,
-                'is_active'         => 1,
+                'created_by'        => 1,
+                'updated_by'        => 1,
+                'deleted_by'        => null,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
                 'deleted_at'        => null,
@@ -175,18 +184,25 @@ class AuthController extends IndexController
 
     public function saveUserTheme(Request $request)
     {
-        $userData   =  Auth::user();
-        $userId = $userData->super_administrator_id;
+        $userData   = Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user(); 
 
-        $superAdmin = SuperAdministrator::find($userId);    
+        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+            $type = 'super_administrator';
+            $id = $userData->super_administrator_id;
+            $user = SuperAdministrator::find($id); 
+        }else{
+            $type = 'administrator';
+            $id = $userData->administrator_id;
+            $user = Administrator::find($id); 
+        }
 
         $arr = array(
           'sidebar_menu_colors' => $request->sidebar_menu_colors,
           'skins' => $request->skins,
         );
 
-        $superAdmin->theme_setting = $arr; 
-        $superAdmin->save();
+        $user->theme_setting = $arr; 
+        $user->save();
     }
 
 

@@ -41,7 +41,7 @@ class AdministratorController extends Controller
                 ];
 
         Session::put('user_data', $data);
-        return view("Administrator::auth.dashboard");
+        return view("auth.dashboard");
     }
 
     /**

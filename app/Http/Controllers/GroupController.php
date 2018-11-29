@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use	Illuminate\Log\Logger;
 use DB;
+use Log;
 
 class GroupController extends Controller
 {
@@ -71,7 +72,7 @@ class GroupController extends Controller
 
 	public function save(Request $request, $id = null)
 	{	
-		$userData 	=  Auth::user();
+		$userData 	=  Auth::guard('super_admin')->user();
 		$rules = [
 		            "name"  			=> "required",
 					"organization"		=> "required|integer",
@@ -98,20 +99,20 @@ class GroupController extends Controller
 		$org 				= Organization::find($data['organization'])->get();
 		$admin 				= Administrator::find($org[0]->administrator_id)->get();
 		$package 			= Package::find($admin[0]->package_id)->get();
-		$packageModules 	= PackageModule::find($package[0]->package_id)->get();
-		$methods 			= Method::find($packageModules[0]->module_id)->get();
-		
-		foreach ($packageModules as $key => $value) {
+		$packageModules 	= PackageModule::find($package[0]->package_id)->pluck('module_id');
+
+		$methods = Method::whereIn('module_id', $packageModules)->get();
+		foreach ($methods as $key => $m_value) {
 			$dataPR['group_id'] 	= $saveGroup->group_id;
-			$dataPR['module_id'] 	= $value->module_id;
-			$dataPR['feature_id'] 	= $value->package_module_id;
+			$dataPR['module_id'] 	= $m_value->module_id;
+			$dataPR['feature_id'] 	= $m_value->method_id;
 			$dataPR['status'] 		= 0;
 			$dataPR['created_by'] 	= isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
-			$dataPR['updated_by'] 	= isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';
-
+			$dataPR['updated_by'] 	= isset($userData->super_administrator_id) ? $userData->super_administrator_id : '';	
 			$savePrivelege = Privilege::findOrNew($id);
 			$savePrivelege->fill($dataPR);
 			$savePrivelege->save();
+
 		}
 
 		$action = ($id) ? 'updated.' : 'created.';

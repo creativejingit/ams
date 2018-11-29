@@ -20,10 +20,10 @@
 									
 								</li>
 								<li class="breadcrumb-item bcrumb-3">
-									<a href="{{url('/package/add-package')}}"> Add Package </a> 
+									<a href="{{url('/package/add-package')}}"> Add User </a> 
 									
 								</li>
-								<li class="breadcrumb-item active">   @if($id) Edit @else Create  @endif Package </li>
+								<li class="breadcrumb-item active">   @if($id) Edit @else Create  @endif User </li>
 							</ul>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="card">
 							<div class="header">
-								<h2><strong> @if($id) Edit @else Create  @endif  Package </strong></h2>
+								<h2><strong> @if($id) Edit @else Create  @endif  User </strong></h2>
 								<ul class="header-dropdown m-r--5">
 									<li class="dropdown">
 										<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -57,100 +57,88 @@
 								</ul>
 							</div>
 							<div class="body">
-								
-									{!! Form::model($package, ['url' => url('package/save', ['id' => $id]),'class'=>'package_creation' ,'id' => 'form_advanced_validation']) !!}
+
+									{!! Form::model($user, ['url' => url('admin/user/save', ['id' => $id]),'class'=>'user' ,'id' => 'form_advanced_validation']) !!}
 
 									<div class="form-group form-float">
+										<div class="form-line">
+											<select class="form-control" name="organization_id">
+					                                <option value="">Select Organization</option>
+					                            @foreach($organization_all as $org)
+					                                <option value="{{$org->organization_id}}">{{$org->name}}</option>
+					                            @endforeach
+					                        </select>
+					                    </div>
+					                </div>
+
+
+					                <div class="form-group form-float">
+										<div class="form-line">
+					                        <select class="form-control" name="group_id">
+					                                <option value="">Select Group</option>
+					                            @foreach($groups as $group)
+					                                <option value="{{$group->group_id}}">{{$group->name}}</option>
+					                            @endforeach
+					                        </select>
+					                    </div>
+					                </div>
+
+
+					                <div class="form-group form-float">
 										<div class="form-line">
 											{!! Form::text('name',null, [
 												'class' => 'form-control',
 												'id'=>'name',
 												'aria-invalid'=>'true'
 											 ]) !!}
-											<label class="form-label">Name </label>
+											<label class="form-label">NAME</label>
 										</div>
 										
 										@if(isset($errors))
-											<label id="name-error" class="error" for="name">{{ $errors->first('name') }}</label>
+											<label id="name_error" class="error" for="name">{{ $errors->first('name') }}</label>
 										@endif
 										
-										<div class="help-info">Name Input accept  string</div>
-									</div>
-									
-									 <div class="form-group form-float">
-										<div class="form-line">
-											{!! Form::number('price',null, [
-														'class' => 'form-control',
-														'id'=>'price',
-														'min' => '0',
-														 'aria-invalid'=>'true'
-													]) !!}
-											<label class="form-label">Price</label>
-										</div>
-										
-										@if(isset($errors))
-											<label id="price-error" class="error" for="company">{{ $errors->first('price') }}</label>
-										@endif
-										
-										<div class="help-info">Price Input accept Numbers</div>
-										
+										<div class="help-info">Name Input accept string</div>
 									</div>
 
-									<div class="form-group form-float">
-										<select class="form-control" name="package_type">
-					                        <option value="">Select Package Type</option>
-					                        <option value="module">Module</option>
-					                        <option value="package">Package</option>
-					                    </select>
-
-					                    @if(isset($errors))
-											<label id="package-type-error" class="error" for="company">{{ $errors->first('package') }}</label>
-										@endif
-										
-										<div class="help-info">Select Package</div>
-					                </div>
 
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::number('organization_no',null, [
+											{!! Form::email('email',null, [
 														'class' => 'form-control',
-														'id'=>'organization_no',
+														'id'=>'email',
 														'min' => '0',
 														 'aria-invalid'=>'true'
 													]) !!}
-											<label class="form-label">Organization NO</label>
+											<label class="form-label">EMAIL</label>
 										</div>
 										
 										@if(isset($errors))
-											<label id="organization-error" class="error" for="company">{{ $errors->first('organization_no') }}</label>
+											<label id="email_error" class="error" for="email">{{ $errors->first('email') }}</label>
 										@endif
 										
-										<div class="help-info">Organization Number Input accept integer</div>
-										
+										<div class="help-info">EMAIL Input accept email</div>
 									</div>
-									
-									
+
+
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::number('users_no',null, [
-														'class' => 'form-control',
-														'id'=>'user_no',
-														'min' => '0',
-														 'aria-invalid'=>'true'
-													]) !!}
-											<label class="form-label">User NO</label>
+											{!! Form::password('password', [
+													'class' => 'form-control',
+													'id'=>'password',
+													 'aria-invalid'=>'true'
+											]) !!}    
+
+											<label class="form-label">Password</label>
 										</div>
 										
 										@if(isset($errors))
-											<label id="users-error" class="error" for="password">{{ $errors->first('users_no') }}</label>
+											<label id="name-error" class="error" for="password">{{ $errors->first('password') }}</label>
 										@endif
 										
-										<div class="help-info">User Number Input accept integer</div>
-										
+										<div class="help-info">password Input accept string</div>
 									</div>
 
-
-									
 									<button class="btn btn-primary waves-effect" type="submit">Save</button>
 								{!! Form::close() !!}
 							</div>

@@ -11,20 +11,19 @@
 
 @php
     $data = Session::get('user_data')['theme_setting'];
-    $parseJson = json_decode($data);
-    $sidebarMenuColor = json_decode(Session::get('user_data')['theme_setting'])->sidebar_menu_colors;
-    $skins = json_decode(Session::get('user_data')['theme_setting'])->skins;
     
-    if ($sidebarMenuColor == 'btn-sidebar-light') :
+    if ($data['sidebar_menu_colors'] == 'btn-sidebar-light') :
         $class = "submenu-closed logo-white";
-        $skin = "theme-".$skins;
-    elseif ($sidebarMenuColor == 'btn-sidebar-dark') : 
+        $skin = "theme-".$data['skins'];
+    elseif ($data['sidebar_menu_colors'] == 'btn-sidebar-dark') : 
         $class = "menu_dark logo-black submenu-closed";
-        $skin = "theme-".$skins;
+        $skin = "theme-".$data['skins'];
     else : 
         $class = "submenu-closed logo-white";
-        $skin = "theme-".$skins;
+        $skin = "theme-".$data['skins'];
     endif;
+
+
 @endphp
 
 <body class="{!!$skin!!} {!!$class!!}">
