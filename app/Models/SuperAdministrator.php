@@ -23,7 +23,7 @@ class SuperAdministrator extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'company', 'email','password','activation_password','activation_status','remember_token', 'created_by', 'updated_by', 'deleted_by', 'created_at', 'updated_at', 'deleted_at'
+        'name', 'company', 'email','password','profile_pic', 'activation_password','activation_status','remember_token', 'created_by', 'updated_by', 'deleted_by', 'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**

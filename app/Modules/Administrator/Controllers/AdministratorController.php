@@ -38,6 +38,9 @@ class AdministratorController extends Controller
                     'theme_setting'           => isset($userData->theme_setting) ? 
                                                  $userData->theme_setting :    
                                                    '{ "sidebar_menu_colors": "btn-sidebar-light","skins": "purple" }',
+                                                   
+                    'name'                    => $userData->name,
+                    'profile_pic'             => $userData->profile_pic,
                 ];
 
         Session::put('user_data', $data);

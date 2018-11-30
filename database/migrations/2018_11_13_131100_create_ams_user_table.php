@@ -21,6 +21,7 @@ class CreateAmsUserTable extends Migration
             $table->string('name', 250);
             $table->string('email');
             $table->string('password');
+            $table->string('profile_pic',250);
             $table->text('theme_setting');
             $table->string('activation_password', 250);
             $table->enum('activation_status', ['active', 'inactive']);

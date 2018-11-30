@@ -1,3 +1,9 @@
+@php 
+    $profile_pic = Session::get('user_data')['profile_pic'];
+    $name = Session::get('user_data')['name'];
+    $type = Session::get('user_data')['type'];
+@endphp 
+
     <div>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
@@ -7,14 +13,14 @@
                     <li class="sidebar-user-panel active">
                         <div class="user-panel">
                             <div class=" image">
-                                <img src="{{ asset ('public/assets/images/usrbig.jpg') }}" class="img-circle user-img-circle" alt="User Image" />
+                                <img src="{{ asset ('public/uploads/profile_pic/').'/'.$profile_pic }}" class="img-circle user-img-circle" alt="User Image" />
                             </div>
                         </div>
                         <div class="profile-usertitle">
-                            <div class="sidebar-userpic-name"> Emily Smith </div>
-                            <div class="profile-usertitle-job ">Manager </div>
+                            <div class="sidebar-userpic-name"> {{$name}} </div>
+                            <div class="profile-usertitle-job ">{{$type}} </div>
                         </div>
-                        <div class="sidebar-userpic-btn">
+                        <!-- <div class="sidebar-userpic-btn">
                             <a class="tooltips" href="../examples/profile.html" data-toggle="tooltip" title="Profile">
                                 <i class="far fa-user sidebarQuickIcon"></i>
                             </a>
@@ -27,7 +33,7 @@
                             <a class="tooltips" href="../examples/sign-in.html" data-toggle="tooltip" title="Logout">
                                 <i class="fas fa-sign-out-alt sidebarQuickIcon"></i>
                             </a>
-                        </div>
+                        </div> -->
                     </li>
 
                     <li>
@@ -82,7 +88,7 @@
                             <span>Organization</span>
                         </a>
                     </li>
-                    <li class="header">Main</li>
+<!--                     <li class="header">Main</li>
                     <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="fas fa-tachometer-alt"></i>
@@ -402,7 +408,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <!-- #Menu -->
@@ -414,14 +420,14 @@
                 <li role="presentation">
                     <a href="#skins" data-toggle="tab" class="active">SKINS</a>
                 </li>
-                <li role="presentation">
+                <!-- <li role="presentation">
                     <a href="#settings" data-toggle="tab">SETTINGS</a>
-                </li>
+                </li> -->
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane in active in active stretchLeft" id="skins">
                     <div class="demo-skin">
-                        <div class="rightSetting">
+                        <!-- <div class="rightSetting">
                             <p>GENERAL SETTINGS</p>
                             <ul class="setting-list list-unstyled m-t-20">
                                 <li>
@@ -477,7 +483,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
 
 
 
@@ -514,7 +520,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="rightSetting">
+                        <!-- <div class="rightSetting">
                             <p>Disk Space</p>
                             <div class="sidebar-progress">
                                 <div class="progress m-t-20">
@@ -537,10 +543,10 @@
                                     <small>Highly Loaded</small>
                                 </span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane stretchRight" id="settings">
+                <!-- <div role="tabpanel" class="tab-pane stretchRight" id="settings">
                     <div class="demo-settings">
                         <p>GENERAL SETTINGS</p>
                         <ul class="setting-list">
@@ -606,7 +612,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </aside>
         <!-- #END# Right Sidebar -->

@@ -66,6 +66,8 @@ class AuthController extends IndexController
                     'theme_setting'           => isset($userData->theme_setting) ? 
                                                  $userData->theme_setting :    
                                                    '{ "sidebar_menu_colors": "btn-sidebar-light","skins": "purple" }',
+                    'name'                    => $userData->name,
+                    'profile_pic'             => $userData->profile_pic,
 				];
 
 		Session::put('user_data', $data);
@@ -205,8 +207,89 @@ class AuthController extends IndexController
         $user->save();
     }
 
+    public function profile() 
+    {
+        $userData   = Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
 
-    public function logout(){
+        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+            $data['id'] = $userData->super_administrator_id;
+        }else{
+            $data['id'] = $userData->administrator_id;
+        }
+
+        $data['super_administrator'] = $userData;
+
+        return view('profile.profile', $data);
+    }
+
+    public function saveProfile(Request $request)
+    {
+        // dd($request->all());
+        $userData   = Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
+        $rules = [
+                    "profile_pic"               => "required|mimes:jpg,jpeg,png|dimensions:max_width=500,max_height=500",
+                    "name"                      => "required",
+                    "company"                   => "required",
+                ];
+
+        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+            $hasPassword = SuperAdministrator::findOrFail($id, array('password'));
+        }else{
+            $hasPassword = Administrator::findOrFail($id, array('password'));
+        }
+
+        if($hasPassword->password == null){
+            $rules = [
+                "password"  => "required|min:6",
+            ];
+        }
+
+
+        $validator = \Validator::make($request->all(), $rules,[
+            //"name.required"=>"Select User Type"
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $data = $request->all();
+        $file = $request->file('profile_pic');
+
+        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+            $type = 'super_administrator';
+            $id = $userData->super_administrator_id;
+            $data['password'] = \Hash::make($request->password);
+            $saveProfile = SuperAdministrator::findOrNew($id); 
+            $filename = str_random(10).'-'.$userData->super_administrator_id.'-'.$file->getClientOriginalName();
+            $data['created_by'] = $userData->super_administrator_id;
+            $data['updated_by'] = $userData->super_administrator_id;
+        }else{
+            $type = 'administrator';
+            $id = $userData->administrator_id;
+            $data['password'] = \Hash::make($request->password);
+            $saveProfile = Administrator::findOrNew($id); 
+            $filename = str_random(10).'-'.$userData->administrator_id.'-'.$file->getClientOriginalName();
+            $data['created_by'] = $userData->administrator_id;
+            $data['updated_by'] = $userData->administrator_id;
+        }
+
+        
+        $file->move(public_path_images('/uploads/profile_pic'),$filename);
+
+        $data['profile_pic'] = $filename;
+
+        $saveProfile->fill($data);
+    
+        $saveProfile->save();
+        $action = ($id) ? 'updated.' : 'created.';
+
+        return redirect('dashboard')->with('success',$saveProfile->name.' Prfoiel has been '.$action);
+    }
+
+
+    public function logout()
+    {
 	    Auth::logout();
 	    Session::flush();
 	    return Redirect::to('/login');

@@ -22,11 +22,8 @@
         $class = "submenu-closed logo-white";
         $skin = "theme-".$data['skins'];
     endif;
-
-
 @endphp
-
-<body class="{!!$skin!!} {!!$class!!}">
+<body class="skin-setting">
 
 
 	<!-- Page Loader -->
@@ -55,3 +52,9 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+    // $(window).load('load', 'body', function(){
+    //     $('.skin-setting').attr('class', '');
+    // });
+</script>

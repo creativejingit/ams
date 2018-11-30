@@ -18,6 +18,10 @@ Route::post('/log-in', 'AuthController@login');
 Route::get('/register', 'AuthController@viewRegister');
 Route::post('/register', 'AuthController@register');
 
+// Profile
+Route::get('/profile', 'AuthController@profile');
+Route::post('profile/save/{id?}', 'AuthController@saveProfile');
+
 // Dashboard
 Route::get('/dashboard', 'AuthController@viewDashboard');
 // Logout

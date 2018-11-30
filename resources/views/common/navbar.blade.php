@@ -1,4 +1,7 @@
-
+@php 
+    $profile_pic = Session::get('user_data')['profile_pic'];
+@endphp 
+                    
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -7,7 +10,7 @@
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="../../index.html">
                     <img src="{{ asset ('public/assets/images/logo.png') }}" alt="" />
-                    <span class="logo-name">Roxa</span>
+                    <span class="logo-name">AMS</span>
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -17,14 +20,14 @@
                             <i class="fas fa-bars"></i>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <div class="search-box">
                             <input type="search" id="search" placeholder="Search..." />
                             <button class="icon">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Full Screen Button -->
@@ -36,7 +39,7 @@
                     <!-- #END# Full Screen Button -->
 
                     <!-- Notifications -->
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i class="far fa-bell"></i>
                             <span class="label-count bg-orange">7</span>
@@ -146,10 +149,10 @@
                                 <a href="javascript:void(0);">View All Notifications</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- #END# Notifications -->
                     <!-- #START# Message-->
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i class="far fa-comments"></i>
                             <span class="label-count bg-green">4</span>
@@ -262,21 +265,21 @@
                                 <a href="javascript:void(0);">View All Messages</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- #END# Message-->
                     <li class="dropdown user_profile">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <img src="{{ asset ('public/assets/images/user.jpg') }}" width="32" height="32" alt="User">
+                            <img src="{{ asset ('public/uploads/profile_pic/').'/'.$profile_pic }}" width="32" height="32" alt="User">
                         </a>
                         <ul class="dropdown-menu pullDown">
                             <li class="body">
                                 <ul class="user_dw_menu">
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <a href="{{ url('/profile') }}">
                                             <i class="material-icons">person</i>Profile
                                         </a>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <a href="javascript:void(0);">
                                             <i class="material-icons">feedback</i>Feedback
                                         </a>
@@ -285,7 +288,7 @@
                                         <a href="javascript:void(0);">
                                             <i class="material-icons">help</i>Help
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <a href="{{ url('/logout') }}">
                                             <i class="material-icons">power_settings_new</i>Logout
