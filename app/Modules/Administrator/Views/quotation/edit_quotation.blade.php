@@ -1,5 +1,6 @@
 @extends('layouts.default')
     @section('content')
+        
 		<?php /*
 		{!! Form::model($payment, ['url' => url('admin/payment/save', ['id' => $id]),'class'=>'form-horizontal']) !!}
 */ ?>
@@ -19,10 +20,10 @@
 									
 								</li>
 								<li class="breadcrumb-item bcrumb-3">
-									<a href="{{url('/super-administrator')}}"> PROFILE </a> 
+									<a href="{{url('/package/add-package')}}"> Add Quotation </a> 
 									
 								</li>
-								<li class="breadcrumb-item active">   @if($id) Edit @else Create  @endif PROFILE </li>
+								<li class="breadcrumb-item active">   @if($id) Edit @else Create  @endif Quotation </li>
 							</ul>
 						</div>
 					</div>
@@ -34,7 +35,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="card">
 							<div class="header">
-								<h2><strong> @if($id) Edit @else Create  @endif  PROFILE </strong></h2>
+								<h2><strong> @if($id) Edit @else Create  @endif  Quotation </strong></h2>
 								<ul class="header-dropdown m-r--5">
 									<li class="dropdown">
 										<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -56,104 +57,144 @@
 								</ul>
 							</div>
 							<div class="body">
-								
-									
-									{!! Form::model($super_administrator, ['url' => url('profile/save', ['id' => $id]),'class'=>'' ,'id' => 'form_advanced_validation','files'=>'true']) !!}
+									{!! Form::model($quotation, ['url' => url('admin/quotation/save', ['id' => $id]),'class'=>'quotation' ,'id' => 'form_advanced_validation']) !!}
 
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::text('name',null, [
+											{!! Form::date('date',null, [
 														'class' => 'form-control',
-														'id'=>'name',
-														'aria-invalid'=>'true'
-													]) !!}
-											<label class="form-label">Name </label>
-										</div>
-										
-										@if(isset($errors))
-											<label id="name-error" class="error" for="name">{{ $errors->first('name') }}</label>
-										@endif
-										
-										<div class="help-info">Name Input accept  string</div>
-									</div>
-									
-									 <div class="form-group form-float">
-										<div class="form-line">
-											{!! Form::text('company',null, [
-														'class' => 'form-control',
-														'id'=>'company',
+														'id'=>'date',
+														'min' => '0',
 														 'aria-invalid'=>'true'
 													]) !!}
-											<label class="form-label">Company</label>
+											<label class="form-label">DATE</label>
 										</div>
 										
 										@if(isset($errors))
-											<label id="name-error" class="error" for="company">{{ $errors->first('company') }}</label>
+											<label id="date-error" class="error" for="date">{{ $errors->first('date') }}</label>
 										@endif
 										
-										<div class="help-info">Company Input accept  string</div>
+										<div class="help-info">DATE Input accept Date</div>
 										
 									</div>
 
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::text('email',null, [
+											{!! Form::text('reference_no',null, [
 														'class' => 'form-control',
-														'id'=>'email',
-														 'aria-invalid'=>'true',
-														 'readonly' => 'true'
-													]) !!}
-											<label class="form-label">Email</label>
-										</div>
-										
-										@if(isset($errors))
-											<label id="name-error" class="error" for="company">{{ $errors->first('email') }}</label>
-										@endif
-										
-										<div class="help-info">Email Input accept email</div>
-										
-									</div>
-									
-									
-									<div class="form-group form-float">
-										<div class="form-line">
-											{!! Form::password('password', [
-													'class' => 'form-control',
-													'id'=>'password',
-													 'aria-invalid'=>'true'
-											]) !!}    
-
-											<label class="form-label">Password</label>
-										</div>
-										
-										@if(isset($errors))
-											<label id="name-error" class="error" for="password">{{ $errors->first('password') }}</label>
-										@endif
-										
-										<div class="help-info">password Input accept string</div>
-										
-									</div>
-
-
-									<div class="form-group form-float">
-										<div class="form-line">
-											{!! Form::file('profile_pic',null, [
-														'class' => 'form-control',
-														'id'=>'profile_pic',
+														'id'=>'reference_no',
+														'min' => '0',
 														 'aria-invalid'=>'true'
 													]) !!}
-											<!-- <label class="form-label">PHONE NO.</label> -->
+											<label class="form-label">REFERENCE NUMBER</label>
 										</div>
 										
 										@if(isset($errors))
-											<label id="profile_pic_error" class="error" for="profile_pic">{{ $errors->first('profile_pic') }}</label>
+											<label id="reference_no" class="error" for="reference_no">{{ $errors->first('reference_no') }}</label>
 										@endif
 										
-										<div class="help-info">Profile Pic Input accept Image</div>
+										<div class="help-info">REFERENCE NUMBER Input accept string</div>
+										
 									</div>
 
 
-									
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('to',null, [
+														'class' => 'form-control',
+														'id'=>'to',
+														'min' => '0',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">TO</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="to" class="error" for="to">{{ $errors->first('to') }}</label>
+										@endif
+										
+										<div class="help-info">TO Input accept string</div>
+										
+									</div>
+
+
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('client',null, [
+														'class' => 'form-control',
+														'id'=>'client',
+														'min' => '0',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">CLIENT</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="client" class="error" for="client">{{ $errors->first('client') }}</label>
+										@endif
+										
+										<div class="help-info">CLIENT Input accept string</div>
+										
+									</div>
+
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('address',null, [
+														'class' => 'form-control',
+														'id'=>'address',
+														'min' => '0',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">ADDRESS</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="address" class="error" for="address">{{ $errors->first('address') }}</label>
+										@endif
+										
+										<div class="help-info">ADDRESS Input accept string</div>
+										
+									</div>
+
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('contact_no',null, [
+														'class' => 'form-control',
+														'id'=>'contact_no',
+														'min' => '0',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">CONTACT NO</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="contact_no" class="error" for="contact_no">{{ $errors->first('contact_no') }}</label>
+										@endif
+										
+										<div class="help-info">CONTACT NO Input accept string</div>
+										
+									</div>
+
+
+									<div class="form-group form-float">
+										<div class="form-line">
+											{!! Form::text('dollar_rate',null, [
+														'class' => 'form-control',
+														'id'=>'dollar_rate',
+														'min' => '0',
+														 'aria-invalid'=>'true'
+													]) !!}
+											<label class="form-label">DOLLAR RATE</label>
+										</div>
+										
+										@if(isset($errors))
+											<label id="dollar_rate" class="error" for="dollar_rate">{{ $errors->first('dollar_rate') }}</label>
+										@endif
+										
+										<div class="help-info">DOLLAR RATE Input accept string</div>
+										
+									</div>
+
 									<button class="btn btn-primary waves-effect" type="submit">Save</button>
 								{!! Form::close() !!}
 							</div>

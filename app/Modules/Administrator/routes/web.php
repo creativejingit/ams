@@ -44,4 +44,12 @@ Route::group(['module' => 'Administrator', 'middleware' => ['web','guest'], 'nam
     Route::get('admin/user/edit/{id?}', 'UserController@edit');
     Route::post('admin/user/save/{id?}', 'UserController@save');
     Route::get('admin/user/delete/{id}','UserController@remove');
+
+    // QUOTATION 
+    Route::get('admin/quotation','QuotationController@index');
+    Route::get('admin/add-quotation', 'QuotationController@add');
+
+    Route::get('admin/quotation/edit/{id?}', 'QuotationController@edit');
+    Route::post('admin/quotation/save/{id?}', 'QuotationController@save');
+    Route::get('admin/quotation/delete/{id}','QuotationController@remove');
 });

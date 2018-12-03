@@ -37,6 +37,13 @@
                     </li>
 
                     <li>
+                        <a href="{{ url('admin/quotation') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <span>Quotation</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="{{ url('admin/user') }}">
                             <i class="fab fa-wpforms"></i>
                             <span>User</span>

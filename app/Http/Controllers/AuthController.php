@@ -208,9 +208,9 @@ class AuthController extends IndexController
     }
 
     public function profile() 
-    {
+    { 
         $userData   = Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
-
+        
         if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
             $data['id'] = $userData->super_administrator_id;
         }else{
@@ -231,10 +231,13 @@ class AuthController extends IndexController
                     "name"                      => "required",
                     "company"                   => "required",
                 ];
+    
 
         if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+            $id = $userData->super_administrator_id;
             $hasPassword = SuperAdministrator::findOrFail($id, array('password'));
         }else{
+            $id = $userData->administrator_id;
             $hasPassword = Administrator::findOrFail($id, array('password'));
         }
 
