@@ -12,6 +12,7 @@ use App\Modules\Administrator\Models\Client;
 use App\Modules\Administrator\Models\Vendor;
 use App\Modules\Administrator\Models\ForeignExchangeRate;
 use App\Modules\Administrator\Models\Quotation;
+use App\Modules\Administrator\Models\QuotationDetail;
 use Auth;
 use Config;
 use Carbon\Carbon;
@@ -75,6 +76,8 @@ class QuotationController extends AdministratorController
 
     public function save(Request $request, $id = null)
     {       
+        
+        // dd($request->all());
         $userData   =  Auth::guard('admin')->user();
         $rules = [
                     "date"                          => 'required', 
@@ -98,13 +101,28 @@ class QuotationController extends AdministratorController
         $data['created_by'] = isset($userData->administrator_id) ? $userData->administrator_id : 'YOU DONT HAVE PERMISSION TO ACCESS';
         $data['updated_by'] = isset($userData->administrator_id) ? $userData->administrator_id : 'YOU DONT HAVE PERMISSION TO ACCESS';
 
-        $saveForeignExchangeRateForm = Quotation::findOrNew($id);
-        $saveForeignExchangeRateForm->fill($data);
+        $saveQuotation = Quotation::findOrNew($id);
+        $saveQuotation->fill($data);
         
-    
-        $saveForeignExchangeRateForm->save();
+        $saveQuotation->save();
+
+        $lastQuotationId = $saveQuotation->quotation_id;
+        
+        foreach ($request['Item'] as $key => $value) {
+            $data = [
+                'quotation_id'  => $lastQuotationId,
+                'items'         => $request['Item'][$key],
+                'description'   => $request['Description'][$key],
+                'quantity'      => $request['Quantity'][$key],
+            // 'total_cost'      => $request['Total_Cost'][$key],
+            ];
+
+            $saveQuotationDetail = QuotationDetail::findOrNew($lastQuotationId);
+            $saveQuotationDetail->fill($data);
+            $saveQuotationDetail->save();
+        }
         $action = ($id) ? 'updated.' : 'created.';
-        return redirect('admin/quotation')->with('success',$saveForeignExchangeRateForm->vendor_name.' Qoutation has been '.$action);
+        return redirect('admin/quotation')->with('success',' Qoutation has been '.$action);
     }
 
     public function remove($id=null)

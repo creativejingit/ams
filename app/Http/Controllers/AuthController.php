@@ -87,6 +87,7 @@ class AuthController extends IndexController
             'user_type' => 'required',
         ]);
 
+        // dd(Auth::guard('admin')->attempt(['email' => $email, 'password' => $password]));
         if ($validator->fails()) {
             // status -1 for validation errors of laravel
             return response()->json([
