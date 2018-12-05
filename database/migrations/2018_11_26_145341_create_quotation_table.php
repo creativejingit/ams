@@ -25,6 +25,9 @@ class CreateQuotationTable extends Migration
             $table->string('project',250);
             $table->string('description',250);
             $table->string('estimated_time',250);
+            $table->string('total_net_cost',250);
+            $table->string('tax_sst',250);
+            $table->string('gross_total',250);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

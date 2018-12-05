@@ -76,7 +76,6 @@ class QuotationController extends AdministratorController
 
     public function save(Request $request, $id = null)
     {       
-        
         // dd($request->all());
         $userData   =  Auth::guard('admin')->user();
         $rules = [
@@ -87,6 +86,15 @@ class QuotationController extends AdministratorController
                     "address"                       => 'required',
                     "contact_no"                    => 'required',
                     "dollar_rate"                   => 'required',
+                    "project"                       => 'required',
+                    "description"                   => 'required',
+                    "estimated_time"                => 'required',
+                    "Item"                          => 'required',
+                    "Description"                   => 'required',
+                    "Quantity"                      => 'required',
+                    "total_net_cost"                => 'required',
+                    "tax_sst"                       => 'required',
+                    "gross_total"                   => 'required',
                 ];
 
         $validator = \Validator::make($request->all(), $rules,[
@@ -100,8 +108,8 @@ class QuotationController extends AdministratorController
         $data = $request->all();
         $data['created_by'] = isset($userData->administrator_id) ? $userData->administrator_id : 'YOU DONT HAVE PERMISSION TO ACCESS';
         $data['updated_by'] = isset($userData->administrator_id) ? $userData->administrator_id : 'YOU DONT HAVE PERMISSION TO ACCESS';
-
         $saveQuotation = Quotation::findOrNew($id);
+
         $saveQuotation->fill($data);
         
         $saveQuotation->save();
@@ -136,7 +144,7 @@ class QuotationController extends AdministratorController
         }
         return response()->json([
             'status'=>false
-        ]);     
+        ]);   
     }
 
     /**

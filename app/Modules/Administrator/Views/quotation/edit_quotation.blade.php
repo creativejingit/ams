@@ -233,7 +233,7 @@
                                                 <i class="material-icons">date_range</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" class="form-control date" placeholder="Ex: ABC Project">
+                                                <input type="text" name="project" class="form-control date" placeholder="Ex: ABC Project">
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +244,7 @@
                                                 <!-- <i class="material-icons">access_time</i> -->
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" class="form-control time24" placeholder="Ex: ABC">
+                                                <input type="text" name="description" class="form-control time24" placeholder="Ex: ABC">
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +255,7 @@
                                                 <i class="material-icons">access_time</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
+                                                <input type="text" name="estimated_time" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
                                             </div>
                                         </div>
                                     </div>                                 
@@ -334,7 +334,7 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th>0</th>
+                                        <th><input type="text" name="total_net_cost"></th>
                                     </tr>
                                     <tr>
                                         <th class="text-right">
@@ -342,7 +342,7 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th>0</th>
+                                        <th><input type="text" name="tax_sst"></th>
                                     </tr>
                                     <tr>
                                         <th class="text-right">
@@ -350,7 +350,7 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th>0</th>
+                                        <th><input type="text" name="gross_total"></th>
                                     </tr>
                                 </tfoot>
                             </table>

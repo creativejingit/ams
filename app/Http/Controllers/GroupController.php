@@ -146,7 +146,6 @@ class GroupController extends Controller
                     'message' => 'Group modules has been updated.'
                 ]);
 
-
 		}else{
 			$data['module'] = DB::table('ams_module')
          
@@ -155,57 +154,12 @@ class GroupController extends Controller
             ->groupBy('ams_module.module_id')
             ->get();
           
-
-		//	 dd($data['modules']);
-
-
 			$data['method'] = DB::table('ams_method')
-			
             ->whereIn('ams_method.module_id',[1,2])
             ->get();
 	
 		}
 		
-
-
-
-	
-/*
-		$data['group_modules'] = DB::table('ams_group')
-            ->join('ams_organization', 'ams_group.organization_id', '=', 'ams_organization.organization_id')
-            ->join('ams_administrator', 'ams_administrator.administrator_id', '=', 'ams_organization.administrator_id')
-            ->join('ams_package', 'ams_package.package_id', '=', 'ams_administrator.package_id')
-            ->join('ams_package_module', 'ams_package_module.package_id', '=', 'ams_package.package_id')
-            ->join('ams_module', 'ams_module.module_id', '=', 'ams_package_module.package_id')
-            ->join('ams_method', 'ams_module.module_id', '=', 'ams_method.module_id')
-            ->join('ams_sub_module', 'ams_sub_module.sub_module_id', '=', 'ams_method.sub_module_id')
-            ->select('ams_module.module_id as MODULE_ID','ams_module.name as MODULE_NAME')
-            ->where('ams_package_module.Package_id','1')
-            ->groupBy('ams_module.module_id')
-            ->get();
-
-			 dd($data['group_modules']);
-
-		$data['group_sub_modules'] = DB::table('ams_group')
-            ->join('ams_organization', 'ams_group.organization_id', '=', 'ams_organization.organization_id')
-            ->join('ams_administrator', 'ams_administrator.administrator_id', '=', 'ams_organization.administrator_id')
-            ->join('ams_package', 'ams_package.package_id', '=', 'ams_administrator.package_id')
-            ->join('ams_package_module', 'ams_package_module.package_id', '=', 'ams_package.package_id')
-            ->join('ams_module', 'ams_module.module_id', '=', 'ams_package_module.package_id')
-            ->join('ams_method', 'ams_module.module_id', '=', 'ams_method.module_id')
-            ->join('ams_sub_module', 'ams_sub_module.sub_module_id', '=', 'ams_method.sub_module_id')
-            ->where('ams_package_module.Package_id','1')
-            ->select('ams_method.sub_module_id as SUB_MODULE_ID','ams_module.module_id as MODULE_ID ','ams_module.name as MODULE_NAME', 'ams_method.method_id as METHOD_ID','ams_method.name as METHOD_NAME', 'ams_sub_module.name as SUB_MODULE_NAME')
-            ->groupBy('ams_method.name')
-            ->get();
-
-			// dd($data['group_sub_modules']);
-		*/
 		return view('group.group_modules', $data);
-
-		// $data['group'] = Group::where([])->get();
-		// $data['organization'] = Organization::where([])->get();
-		// $package_module_tmp = PackageModule::where([])->get();
-		// $data['module'] = Module::where('status', 1)->get();
 	}
 }

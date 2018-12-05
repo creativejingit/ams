@@ -18,7 +18,7 @@ class Quotation extends Authenticatable
      */
     protected $fillable = [
         
-        	'date', 'reference_no', 'to', 'client', 'address', 'contact_no', 'dollar_rate', 'created_by', 'updated_by', 'deleted_by', 'status', 'created_at', 'updated_at', 'deleted_at'
+        	'date', 'reference_no', 'to', 'client', 'address', 'contact_no', 'dollar_rate', 'project', 'description', 'estimated_time', 'total_net_cost', 'tax_sst', 'gross_total',  'created_by', 'updated_by', 'deleted_by', 'status', 'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**
