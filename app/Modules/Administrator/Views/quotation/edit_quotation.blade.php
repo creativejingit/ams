@@ -233,8 +233,11 @@
                                                 <i class="material-icons">date_range</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" name="project" class="form-control date" placeholder="Ex: ABC Project">
+                                                <input type="text" name="project" value="{{ old('project') }}" class="form-control date" placeholder="Ex: ABC Project">
                                             </div>
+	                                    @if(isset($errors))
+											<label id="project" class="error" for="project">{{ $errors->first('project') }}</label>
+										@endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -244,8 +247,11 @@
                                                 <!-- <i class="material-icons">access_time</i> -->
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" name="description" class="form-control time24" placeholder="Ex: ABC">
+                                                <input type="text" value="{{ old('description') }}" name="description" class="form-control time24" placeholder="Ex: ABC">
                                             </div>
+	                                    @if(isset($errors))
+											<label id="description" class="error" for="description">{{ $errors->first('description') }}</label>
+										@endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -255,10 +261,13 @@
                                                 <i class="material-icons">access_time</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" name="estimated_time" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
+                                                <input type="text" value="{{ old('estimated_time') }}" name="estimated_time" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
                                             </div>
+	                                    @if(isset($errors))
+											<label id="estimated_time" class="error" for="estimated_time">{{ $errors->first('estimated_time') }}</label>
+										@endif                               
                                         </div>
-                                    </div>                                 
+                                    </div>  
                                     </div>
                                 </div>
                             </div>
@@ -266,7 +275,14 @@
                     </div>
                 </div>
 
-
+				<div>
+	            	@if(isset($errors))
+					<label id="Item" class="error" for="Item" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('Item.0') }}</label>
+					<label id="Description" class="error" for="Description" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('Description.0') }}</label>
+					<label id="Quantity" class="error" for="Quantity" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('Quantity.0') }}</label>
+					<label id="Total_Cost" class="error" for="Total_Cost" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('Total_Cost.0') }}</label>
+					@endif
+	            </div>
                 <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -294,6 +310,7 @@
                                 </li>
                             </ul> -->
                         </div>
+							
                         <div class="header">
 								<div class="header-dropdown m-r--5">
 									<div class="row clearfix demo-icon-container">
@@ -316,17 +333,24 @@
                                         <th>Description</th>
                                         <th>Quantity</th>
                                         <th>Total Cost</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="row_1">
+                                    <tr class="rows row_1" data-info='1'>
                                         <td><input type="text" name="Item[]"></td>
                                         <td><input type="text" name="Description[]"></td>
                                         <td><input type="text" name="Quantity[]"></td>
                                         <td><input type="text" name="Total_Cost[]"></td>
                                         <td><input type="hidden" value="1" name="row_id[]"></td>
+                                        <td>
+	                                        <a href="javascript:void(0);" class="todo-remove row_1" data-row="row_1">
+	                                            <i class="material-icons">clear</i>
+	                                        </a>
+                                    	</td>
                                     </tr>
                                 </tbody>
+
                                 <tfoot>
                                     <tr>
                                         <th class="text-right">
@@ -334,7 +358,11 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th><input type="text" name="total_net_cost"></th>
+                                        <th><input type="text" name="total_net_cost" value="{{ old('total_net_cost') }}">
+                                        	@if(isset($errors))
+												<label id="total_net_cost" class="error" for="total_net_cost" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('total_net_cost') }}</label>
+											@endif
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th class="text-right">
@@ -342,7 +370,11 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th><input type="text" name="tax_sst"></th>
+                                        <th><input type="text" name="tax_sst" value="{{ old('tax_sst') }}">
+                                        	@if(isset($errors))
+												<label id="tax_sst" class="error" for="tax_sst" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('tax_sst') }}</label>
+											@endif
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th class="text-right">
@@ -350,7 +382,11 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th><input type="text" name="gross_total"></th>
+                                        <th><input type="text" name="gross_total" value="{{ old('gross_total') }}">
+                                        	@if(isset($errors))
+												<label id="gross_total" class="error" for="gross_total" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('gross_total') }}</label>
+											@endif
+                                        </th>                                        
                                     </tr>
                                 </tfoot>
                             </table>

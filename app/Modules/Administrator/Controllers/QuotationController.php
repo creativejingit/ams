@@ -89,19 +89,22 @@ class QuotationController extends AdministratorController
                     "project"                       => 'required',
                     "description"                   => 'required',
                     "estimated_time"                => 'required',
-                    "Item"                          => 'required',
-                    "Description"                   => 'required',
-                    "Quantity"                      => 'required',
+                    "Item.*"                        => 'required|array',
+                    "Description.*"                 => 'required|array',
+                    "Quantity.*"                    => 'required|array',
+                    "Total_Cost.*"                  => 'required|array',
                     "total_net_cost"                => 'required',
                     "tax_sst"                       => 'required',
                     "gross_total"                   => 'required',
                 ];
 
-        $validator = \Validator::make($request->all(), $rules,[
+        $messages = ['Item.*.required' => 'Items Required', 'Description.*.required' => 'Description Required', 'Quantity.*.required' => 'Quantity Required', 'Total_Cost.*.required' => 'Total Cost Required'];
+
+        $validator = \Validator::make($request->all(), $rules,$messages,[
             //"name.required"=>"Select User Type"
         ]);
-
         if($validator->fails()) {
+        // dd($validator);
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
@@ -129,6 +132,7 @@ class QuotationController extends AdministratorController
             $saveQuotationDetail->fill($data);
             $saveQuotationDetail->save();
         }
+
         $action = ($id) ? 'updated.' : 'created.';
         return redirect('admin/quotation')->with('success',' Qoutation has been '.$action);
     }

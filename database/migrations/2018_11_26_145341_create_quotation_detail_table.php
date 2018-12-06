@@ -19,6 +19,7 @@ class CreateQuotationDetailTable extends Migration
             $table->string('items', 250);
             $table->string('description',250);
             $table->string('quantity',250);
+            $table->string('total_cost',250);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
