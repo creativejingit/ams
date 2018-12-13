@@ -23,118 +23,96 @@ class AuthController extends IndexController
 
 	use AuthenticatesUsers;
 
-	/**
-     * Where to redirect users after login.
-     *
-     * @var string
-    */
-    // protected $redirectTo = '/log-in';
 
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
-    // login view
+	
     public function viewLogin() 
     {
     	return view('auth.login');
     }
-    // register view 
+
     public function viewRegister() 
     {
         $data['packages'] = Package::get();
         return view('auth.register', $data);
     }
-    // dashboard view
-    public function viewDashboard() 
-    {	
+	
+	public function index(Request $request) 
+	{
+		return view('auth.login');
+	}
 
-		$userData 	= Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
-
-        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
-            $type = 'super_administrator';
-            $id = $userData->super_administrator_id;
-        }else{
-            $type = 'administrator';
-            $id = $userData->administrator_id;
-        }
-
-		$data = [
-                    'type' 			          => $type,
-                    'remember_token'          => $userData->remember_token,
-                    'super_administrator_id'  => $id,
-                    'theme_setting'           => isset($userData->theme_setting) ? 
-                                                 $userData->theme_setting :    
-                                                   '{ "sidebar_menu_colors": "btn-sidebar-light","skins": "purple" }',
-                    'name'                    => $userData->name,
-                    'profile_pic'             => $userData->profile_pic,
-				];
-
-		Session::put('user_data', $data);
-    	return view('auth.dashboard');
-    }
-
-    // Login
-    public function login(Request $request) 
+    public function authenticate(Request $request) 
     {
         $email      = $request->email;
         $password   = $request->password;
-        $user_type  = $request->user_type;
+		$user_type	= 2;
+		
+		$super_administrator = SuperAdministrator::where('email', '=',$email);
+		if ($super_administrator->exists()) 
+			$user_type  = 1; 
+		
+		$administrator = Administrator::where('email', '=',$email);
+		if ($administrator->exists()) 
+			$user_type  = 2;
+		
+		$user = User::where('email', '=',$email);
+		if ($user->exists()) 
+			$user_type  = 3;
+		
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6',
-            'user_type' => 'required',
         ]);
 
         // dd(Auth::guard('admin')->attempt(['email' => $email, 'password' => $password]));
-        if ($validator->fails()) {
-            // status -1 for validation errors of laravel
-            return response()->json([
-                'status' => '-1',
-                'errors' => $validator->errors()
-            ]); 
+        if ($validator->fails()) 
+		{
+			return redirect('/')->with('error',$validator->errors()->first());
+ 
         } else {
-            if ($user_type == 1 && Auth::guard('super_admin')->attempt(['email' => $email, 'password' => $password])) {
+            if ($user_type == 1 && Auth::guard('super_admin')->attempt(['email' => $email, 'password' => $password, 'activation_status' => 'active'])) {
                 // Super Admin Here                
                 $user                  = Auth::guard('super_admin')->user();
                 $user = SuperAdministrator::find($user->super_administrator_id);
-                $user->remember_token  = str_random(30);
+				$user->remember_token  = str_random(30);
                 $user->save();
 
-                return response()->json([
-                    // 'auth' => false,
-                    'status' => '1',
-                    'redirect_url' => url('/dashboard'),
-                    'errors' => 'Success! logged in.'
-                ]); 
+                return redirect('/dashboard/super_administrator')->with('success','Welcome to AMS.');
                 
-            } elseif ($user_type == 2 && Auth::guard('admin')->attempt(['email' => $email, 'password' => $password])) {
-                // Admin Here
+            } elseif ($user_type == 2 && Auth::guard('admin')->attempt(['email' => $email, 'password' => $password, 'activation_status' => 'active'])) {
+            
                 $user                  = Auth::guard('admin')->user();
                 $user = Administrator::find($user->administrator_id);
                 $user->remember_token  = str_random(30);
                 $user->save();
 
-                return response()->json([
-                    // 'auth' => false,
-                    'status' => '1',
-                    'redirect_url' => url('/admin/dashboard'),
-                    'errors' => 'Success! logged in.'
-                ]); 
+				return redirect('/dashboard/admin')->with('success','Welcome to AMS.');
+
+            }
+			elseif ($user_type == 3 && Auth::guard('user')->attempt(['email' => $email, 'password' => $password, 'activation_status' => 'active'])) {
+                // User Here
+                $user                  = Auth::guard('user')->user();
+                $user = User::find($user->user_id);
+                $user->remember_token  = str_random(30);
+                $user->save();
+
+				
+				return redirect('/dashboard/user')->with('success','Welcome to AMS.');
+         
                 
-            }else{
-                return response()->json([
-                    'status' => '0',
-                    'redirect_url' => url('/login'),
-                    'errors' => 'Credentials does not match to our system.'
-                ]);
+            }
+			else{
+				return redirect('/')->with('error','Credentials does not match to our system.');
             }
 
         }
     }
 
-    // Registration.
     public function register(Request $request)
     {
         $username               = $request->username;
@@ -210,13 +188,20 @@ class AuthController extends IndexController
 
     public function profile() 
     { 
-        $userData   = Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
-        
-        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
+		if(Auth::guard('super_admin')->user())
+			$userData   = 	Auth::guard('super_admin')->user();
+		if(Auth::guard('admin')->user())
+			$userData   = 	Auth::guard('admin')->user();
+		if(Auth::guard('user')->user())
+			$userData   = 	Auth::guard('user')->user();
+         
+        if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '')
             $data['id'] = $userData->super_administrator_id;
-        }else{
-            $data['id'] = $userData->administrator_id;
-        }
+		if(isset($userData->administrator_id) && $userData->administrator_id != '')
+			$data['id'] = $userData->administrator_id;
+		if(isset($userData->user_id) && $userData->user_id != '') 
+			$data['id'] = $userData->user_id;
+        
 
         $data['super_administrator'] = $userData;
 
@@ -226,20 +211,30 @@ class AuthController extends IndexController
     public function saveProfile(Request $request)
     {
         // dd($request->all());
-        $userData   = Auth::guard('super_admin')->user() ? Auth::guard('super_admin')->user()  : Auth::guard('admin')->user();
-        $rules = [
+        if(Auth::guard('super_admin')->user())
+			$userData   = 	Auth::guard('super_admin')->user();
+		if(Auth::guard('admin')->user())
+			$userData   = 	Auth::guard('admin')->user();
+		if(Auth::guard('user')->user())
+			$userData   = 	Auth::guard('user')->user();
+		$rules = [
                     "profile_pic"               => "required|mimes:jpg,jpeg,png|dimensions:max_width=500,max_height=500",
                     "name"                      => "required",
                     "company"                   => "required",
                 ];
-    
+  
 
         if(isset($userData->super_administrator_id) && $userData->super_administrator_id != '') {
             $id = $userData->super_administrator_id;
             $hasPassword = SuperAdministrator::findOrFail($id, array('password'));
-        }else{
+        }
+		if(isset($userData->administrator_id) && $userData->administrator_id != ''){
             $id = $userData->administrator_id;
             $hasPassword = Administrator::findOrFail($id, array('password'));
+        }
+		if(isset($userData->user_id) && $userData->user_id != ''){
+            $id = $userData->user_id;
+            $hasPassword = User::findOrFail($id, array('password'));
         }
 
         if($hasPassword->password == null){
@@ -268,7 +263,9 @@ class AuthController extends IndexController
             $filename = str_random(10).'-'.$userData->super_administrator_id.'-'.$file->getClientOriginalName();
             $data['created_by'] = $userData->super_administrator_id;
             $data['updated_by'] = $userData->super_administrator_id;
-        }else{
+		}
+        if(isset($userData->administrator_id) && $userData->administrator_id != ''){
+       
             $type = 'administrator';
             $id = $userData->administrator_id;
             $data['password'] = \Hash::make($request->password);
@@ -276,6 +273,15 @@ class AuthController extends IndexController
             $filename = str_random(10).'-'.$userData->administrator_id.'-'.$file->getClientOriginalName();
             $data['created_by'] = $userData->administrator_id;
             $data['updated_by'] = $userData->administrator_id;
+        }
+		if(Auth::guard('user')->user()){
+            $type = 'user';
+            $id = $userData->user_id;
+            $data['password'] = \Hash::make($request->password);
+            $saveProfile = User::findOrNew($id); 
+            $filename = str_random(10).'-'.$userData->user_id.'-'.$file->getClientOriginalName();
+            $data['created_by'] = $userData->user_id;
+            $data['updated_by'] = $userData->user_id;
         }
 
         
@@ -288,14 +294,15 @@ class AuthController extends IndexController
         $saveProfile->save();
         $action = ($id) ? 'updated.' : 'created.';
 
-        return redirect('dashboard')->with('success',$saveProfile->name.' Prfoiel has been '.$action);
+        return redirect('dashboard')->with('success',$saveProfile->name.' Profile has been '.$action);
     }
-
 
     public function logout()
     {
 	    Auth::logout();
 	    Session::flush();
-	    return Redirect::to('/login');
+	    return Redirect::to('/');
 	}
+
+	
 }

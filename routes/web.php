@@ -11,9 +11,8 @@
 |
 */
 // login
-Route::get('/', 'IndexController@index');
-Route::get('/login', 'IndexController@index');
-Route::post('/log-in', 'AuthController@login');
+Route::get('/', 'AuthController@index');
+Route::post('/authenticate', 'AuthController@authenticate');
 
 // Register
 Route::get('/register', 'AuthController@viewRegister');
@@ -24,13 +23,43 @@ Route::get('/profile', 'AuthController@profile');
 Route::post('profile/save/{id?}', 'AuthController@saveProfile');
 
 // Dashboard
-Route::get('/dashboard', 'AuthController@viewDashboard');
+Route::get('/dashboard/{type?}', 'DashboardController@index');
+
 // Logout
 Route::get('/logout', 'AuthController@logout');
+
 // Save theme
 Route::post('/save-user-theme', 'AuthController@saveUserTheme');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Create Package
-Route::get('package/view-package', 'PackageController@viewPackage');
+Route::get('package/', 'PackageController@viewPackage');
 // Add Package
 Route::get('package/add-package', 'PackageController@add');
 Route::get('package/edit/{id?}', 'PackageController@edit');

@@ -135,16 +135,20 @@ class GroupController extends Controller
 
 	public function groupsModule(Request $request, $id = null)
 	{
+		 
+		
 		if($request->isMethod('post'))
 		{
 
-			Privilege::whereIn('feature_id', $request->methods)->where('group_id', $request->group_id)->where('module_id', $request->modules)->update(['status' => 1]);
+			Privilege::where('group_id', $request->group_id)
+						->update(['status' => 0]);
 
-			Privilege::whereNotIn('feature_id', $request->methods)->where('group_id', $request->group_id)->where('module_id', $request->modules)->update(['status' => 0]);
+			Privilege::whereIn('method_id', $request->methods)
+						->where('group_id', $request->group_id)
+						->whereIn('module_id', $request->modules)
+						->update(['status' => 1]);
 
-			return response()->json([
-                    'message' => 'Group modules has been updated.'
-                ]);
+			return redirect('groups/group-modules/'.$id)->with('success','Group modules has been updated.');
 
 		}else{
 			$data['module'] = DB::table('ams_module')

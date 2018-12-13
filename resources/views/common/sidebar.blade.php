@@ -35,52 +35,121 @@
                             </a>
                         </div> -->
                     </li>
+					
+					<?php 
+							
+							if($type=="super_administrator")
+							{
+					?>
+								<li>
+									<a href="{{ url('package/') }}">
+										<i class="fab fa-wpforms"></i>
+										<span>Package</span>
+									</a>
+								</li>
+					<?php 
+							}
+							if($type=="administrator")
+							{
+					?>
+								<li>
+									<a href="{{ url('organization/view-organization') }}">
+										<i class="fab fa-wpforms"></i>
+										<span>Organization</span>
+									</a>
+								</li>
+								<li>
+									<a href="{{ url('groups/view-group') }}">
+										<i class="fab fa-wpforms"></i>
+										<span>Groups</span>
+									</a>
+								</li>
+								<li>
+									<a href="{{ url('admin/user') }}">
+										<i class="fab fa-wpforms"></i>
+										<span>User</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" class="menu-toggle">
+										<i class="fas fa-angle-double-down"></i>
+										<span>Setup Form</span>
+									</a>
+									<ul class="ml-menu">
+										
+										<li>
+											<a href="{{ url('admin/foreign-exchange-rate') }}">
+												<i class="fab fa-wpforms"></i>
+												<span>Foreign Exchange Rate</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ url('admin/vendor-creation') }}">
+												<i class="fab fa-wpforms"></i>
+												<span>Vendor</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ url('admin/company-creation') }}">
+												<i class="fab fa-wpforms"></i>
+												<span>Company</span>
+											</a>
+										</li>
+										<li>
+											<a href="{{ url('admin/client-creation') }}">
+												<i class="fab fa-wpforms"></i>
+												<span>Client</span>
+											</a>
+										</li>
+										<!--
+										<li>
+											<a href="javascript:void(0);" class="menu-toggle">
+												<span>Level - 2</span>
+											</a>
+											<ul class="ml-menu">
+												<li>
+													<a href="javascript:void(0);">
+														<span>Menu Item</span>
+													</a>
+												</li>
+												<li>
+													<a href="javascript:void(0);" class="menu-toggle">
+														<span>Level - 3</span>
+													</a>
+													<ul class="ml-menu">
+														<li>
+															<a href="javascript:void(0);">
+																<span>Level - 4</span>
+															</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										-->
+									</ul>
+								</li>
+					
+					<?php 
+							}
+							if($type=="user")
+							{
+					?>
+								
+								<li>
+									<a href="{{ url('admin/quotation') }}">
+										<i class="fab fa-wpforms"></i>
+										<span>Quotation</span>
+									</a>
+								</li>
 
-                    <li>
-                        <a href="{{ url('admin/quotation') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Quotation</span>
-                        </a>
-                    </li>
+                    
 
-                    <li>
-                        <a href="{{ url('admin/user') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>User</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{{ url('admin/foreign-exchange-rate') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Foreign Exchange Rate</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('admin/vendor-creation') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Vendor</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('admin/company-creation') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Company</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('admin/client-creation') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Client</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('groups/view-group') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Groups</span>
-                        </a>
-                    </li>
-
+								
+                    
+					<?php 
+							}
+					?>
                     <!-- <li>
                         <a href="{{ url('groups/group-modules') }}">
                             <i class="fab fa-wpforms"></i>
@@ -89,12 +158,6 @@
                     </li> -->
 
 
-                    <li>
-                        <a href="{{ url('organization/view-organization') }}">
-                            <i class="fab fa-wpforms"></i>
-                            <span>Organization</span>
-                        </a>
-                    </li>
 <!--                     <li class="header">Main</li>
                     <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">

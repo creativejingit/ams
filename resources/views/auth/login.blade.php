@@ -12,7 +12,9 @@
     <div class="limiter">
         <div class="container-login100 page-background">
             <div class="wrap-login100">
-                <form class="login100-form validate-form">
+                <!--<form class="login100-form validate-form">-->
+				{!! Form::open(['url' => url('authenticate'),'class'=>'validate-form' ,'id' => '','files'=>'true']) !!}
+
                     <span class="login100-form-logo">
                         <img alt="" src="{{ asset ('public/assets/images/loading.png') }}">
                     </span>
@@ -20,20 +22,13 @@
                         Log in
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Enter Email">
-                        <input class="input100 email" type="text" name="email" placeholder="Email">
+                        <input class="input100 email" type="text" name="email" placeholder="Email" value="super.admin@ams.com">
                         <i class="material-icons focus-input1001">person</i>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100 password" type="password" name="pass" placeholder="Password">
+                        <input class="input100 password" type="password" name="password" placeholder="Password" value="super.admin">
                         <i class="material-icons focus-input1001">lock</i>
                     </div>
-
-                    <select class="form-control user_type">
-                        <option value="">Select User Type</option>
-                        <option value="1">Super Admininstrator</option>
-                        <option value="2">Admininstrator</option>
-                        <option value="3">User</option>
-                    </select>
 
 
                     <div class="contact100-form-checkbox">
@@ -46,10 +41,13 @@
                             </label>
                         </div>--}}
                     </div>
-                    <div class="alert alert-danger hidden error_message" style="display:none">
-                    </div>
+					@if( $message = session('error') )
+                    <div class="alert alert-danger hidden error_message" >
+							<?php echo $message ; ?>
+					</div>
+					@endif
                     <div class="container-login100-form-btn">
-                        <input type="button" name="button" style="background-color: #fff;" class="login100-form-btn login-btn" value="Login" />
+                        <input type="submit" name="button" style="background-color: #fff;" class="login100-form-btn " value="Login" />
                     </div>
                     <div class="text-center p-t-50">
                         <a class="txt1" href="forgot-password.html">

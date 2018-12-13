@@ -1,6 +1,7 @@
 <?php
 use App\Models\Administrator;
 use App\Models\SuperAdministrator;
+use App\Models\User;
 return [
 
     /*
@@ -55,6 +56,10 @@ return [
             'driver' => 'session',
             'provider' => 'ams_administrator',
         ],
+		'user' => [
+            'driver' => 'session',
+            'provider' => 'ams_user',
+        ],
     ],
 
     /*
@@ -88,10 +93,10 @@ return [
         //     'model' => App\Modules\Admin\Models\Admin::class,
         // ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'ams_user' => [
+             'driver' => 'eloquent',
+             'model' =>  User::class,
+         ],
     ],
 
     /*
@@ -115,6 +120,7 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+		
     ],
 
 ];
