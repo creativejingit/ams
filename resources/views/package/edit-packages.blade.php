@@ -20,7 +20,7 @@
 									
 								</li>
 								<li class="breadcrumb-item bcrumb-3">
-									<a href="{{url('/package/add-package')}}"> Add Package </a> 
+									<a href="{{url('/package/add')}}"> Add Package </a> 
 									
 								</li>
 								<li class="breadcrumb-item active">   @if($id) Edit @else Create  @endif Package </li>
@@ -97,14 +97,13 @@
 									</div>
 
 									<div class="form-group form-float">
-										<select class="form-control" name="package_type">
-					                        <option value="">Select Package Type</option>
-					                        <option value="module">Module</option>
-					                        <option value="package">Package</option>
-					                    </select>
-
+										 {!! Form::select('package_type', [
+                                                'module' => 'Module',
+                                                'package' => 'Package',
+                                              ], $package->package_type, ['class' => 'form-control', 'placeholder' => 'Select Package Type']) !!}
+                
 					                    @if(isset($errors))
-											<label id="package-type-error" class="error" for="company">{{ $errors->first('package') }}</label>
+											<label id="package-type-error" class="error" for="company">{{ $errors->first('package_type') }}</label>
 										@endif
 										
 										<div class="help-info">Select Package</div>

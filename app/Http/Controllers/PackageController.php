@@ -11,10 +11,11 @@ use App\Models\PackageModule;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use	Illuminate\Log\Logger;
+use DB; 
 
 class PackageController extends Controller
 {
-    public function viewPackage()
+    public function index()
     {
     	$data['menu_active'] = 'package';
 
@@ -81,7 +82,17 @@ class PackageController extends Controller
 
 	public function save(Request $request, $id = null)
 	{	
-		$userData 	=  Auth::user();
+		//$userData 	=  Auth::user();
+		
+		$userData = NULL;
+		
+		$userData 	= Auth::guard('super_admin')->user() ;
+		if(empty($userData))
+			$userData 	= Auth::guard('admin')->user();
+		if(empty($userData))
+			$userData 	= Auth::guard('user')->user();
+		
+		
 		$rules = [
 		            "name"  			=> "required",
 					"price"  			=> "required|integer|min:0",
@@ -104,10 +115,24 @@ class PackageController extends Controller
 		$savePackage = Package::findOrNew($id);
 		$savePackage->fill($data);
 		
-	
+		if($id==null)
+		{
+			$package_id = DB::table('ams_package')->max('package_id');
+			$modules = Module::get(); 
+			foreach($modules as $row )
+			{ 
+				$savePackageModule = PackageModule::findOrNew(null);
+				$data['package_id'] = $package_id; 
+				$data['module_id'] = $row->module_id; 
+				$data['status'] = 0; 
+				$data['created_by'] = (int) $userData->id;
+				$savePackageModule->fill($data);
+				$savePackageModule->save();
+			}
+		}
 		$savePackage->save();
 		$action = ($id) ? 'updated.' : 'created.';
-		return redirect('package/view-package')->with('success',$savePackage->name.' Package has been '.$action);
+		return redirect('package/')->with('success',$savePackage->name.' Package has been '.$action);
 	}
 
 

@@ -59,9 +59,8 @@ Route::post('/save-user-theme', 'AuthController@saveUserTheme');
 
 
 // Create Package
-Route::get('package/', 'PackageController@viewPackage');
-// Add Package
-Route::get('package/add-package', 'PackageController@add');
+Route::get('package/', 'PackageController@index');
+Route::get('package/add', 'PackageController@add');
 Route::get('package/edit/{id?}', 'PackageController@edit');
 Route::post('package/save/{id?}', 'PackageController@save');
 

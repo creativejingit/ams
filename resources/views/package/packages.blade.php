@@ -10,14 +10,15 @@
 							<ul class="breadcrumb breadcrumb-style">
 								<li class="breadcrumb-item 	bcrumb-1">
 										<a href="javascript:void(0);">
-											<i class="material-icons">home</i> Home</a>
+											<i class="material-icons">home</i> Home
+										</a>
 									</li>
 									<li class="breadcrumb-item bcrumb-2">
 										<a href="javascript:void(0);">AMS</a>
 										
 									</li>
 									<li class="breadcrumb-item active">
-										<a href="{{url('package/view-package')}}"> Packages </a> 
+										<a href="{{url('package/index')}}"> Packages </a> 
 										
 									</li>
 							</ul>
@@ -53,7 +54,7 @@
 									<div class="row clearfix demo-icon-container">
 										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 											<div class="demo-google-material-icon">
-												<a href="{{url('package/add-package')}}">
+												<a href="{{url('package/add')}}">
 													<i class="material-icons">add_box</i>
 													<span class="icon-name"></span>
 												</a>
