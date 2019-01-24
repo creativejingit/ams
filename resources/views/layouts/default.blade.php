@@ -6,6 +6,7 @@
 	<style>
 			@yield('style')
 	</style>
+	@yield('link')
 </head>
 
 

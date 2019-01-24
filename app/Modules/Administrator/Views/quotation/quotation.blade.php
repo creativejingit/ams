@@ -53,7 +53,7 @@
 									<div class="row clearfix demo-icon-container">
 										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 											<div class="demo-google-material-icon">
-												<a href="{{url('admin/add-quotation')}}">
+												<a href="{{url('admin/quotation/add')}}">
 													<i class="material-icons">add_box</i>
 													<span class="icon-name"></span>
 												</a>
@@ -149,10 +149,28 @@
 			<script src="{{ asset ('public/assets/js/pages/tables/jquery-datatable.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/ui/dialogs.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/forms/advanced-form-elements.js') }}"></script>
-			
-			<!-- functionality JS -->
-    		<script type="text/javascript" src="{{ URL::asset('public/js/package.js') }}"></script>
-   
+			<script>
+				function savePackageModule(action,package_id)
+				{
+					let id = action.val();
+					let package_name = $(this).text();
+
+					$.ajax({
+						url: APP_URL + "/package/save-package-modules",
+						type: 'POST',
+						dataType: 'json',
+						data: {
+								id: id,
+								package_id: package_id,
+								_token: $('meta[name="csrf-token"]').attr('content')
+							},
+						success: function (data) {
+							alert('Success!!');
+						}
+					});
+				}
+			</script>
+
 			
 	@endsection
 	

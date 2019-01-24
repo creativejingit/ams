@@ -1,4 +1,8 @@
 @extends('layouts.default')
+	@section('link')
+		<link href="{{ asset ('public/assets/css/form.min.css') }}" rel="stylesheet">
+	@endsection()
+		
     @section('content')
         
 		<?php /*
@@ -61,7 +65,7 @@
 
 									<div class="form-group form-float">
 										<div class="form-line">
-											{!! Form::date('date',null, [
+											{!! Form::date('date', \Carbon\Carbon::now(), [
 														'class' => 'form-control',
 														'id'=>'date',
 														'min' => '0',
@@ -233,8 +237,14 @@
                                                 <i class="material-icons">date_range</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" name="project" value="{{ old('project') }}" class="form-control date" placeholder="Ex: ABC Project">
-                                            </div>
+                                              
+												{!! Form::text('project',null, [
+														 'class' => 'form-control',
+														 'id'=>'project',
+														 'placeholder'=>"Ex: ABC ",
+														 'aria-invalid'=>'true'
+													]) !!}
+										   </div>
 	                                    @if(isset($errors))
 											<label id="project" class="error" for="project">{{ $errors->first('project') }}</label>
 										@endif
@@ -247,7 +257,12 @@
                                                 <!-- <i class="material-icons">access_time</i> -->
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" value="{{ old('description') }}" name="description" class="form-control time24" placeholder="Ex: ABC">
+													{!! Form::text('description',null, [
+														 'class' => 'form-control',
+														 'id'=>'description',
+														 'placeholder'=>"Ex: ABC ",
+														 'aria-invalid'=>'true'
+													]) !!}
                                             </div>
 	                                    @if(isset($errors))
 											<label id="description" class="error" for="description">{{ $errors->first('description') }}</label>
@@ -261,8 +276,18 @@
                                                 <i class="material-icons">access_time</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" value="{{ old('estimated_time') }}" name="estimated_time" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
-                                            </div>
+										
+													{!! Form::text('estimated_time',null, [
+														 'class' => 'form-control estimated_time',
+														 'id'=>'estimated_time',
+														 'placeholder'=>"Ex: Wednesday 01 January 2018 - 05:14",
+														 'aria-invalid'=>'true'
+													]) !!}
+												
+												
+												
+												
+											</div>
 	                                    @if(isset($errors))
 											<label id="estimated_time" class="error" for="estimated_time">{{ $errors->first('estimated_time') }}</label>
 										@endif                               
@@ -317,14 +342,14 @@
 										<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 											<div class="demo-google-material-icon">
 												<a href="javascript:void(0)">
-													<i data-info='1' class="material-icons add_row">add_box</i>
+													<i data-info='<?php if(isset($quotation_detail)) echo count($quotation_detail); else echo "1"; ?>' class="material-icons add_row">add_box</i>
 													<span class="icon-name"></span>
 												</a>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+						</div>
                         <div class="body">
                             <table id="mainTable" class="table table-striped">
                                 <thead>
@@ -337,18 +362,90 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="rows row_1" data-info='1'>
-                                        <td><input type="text" name="Item[]"></td>
-                                        <td><input type="text" name="Description[]"></td>
-                                        <td><input type="text" name="Quantity[]"></td>
-                                        <td><input type="text" name="Total_Cost[]"></td>
-                                        <td><input type="hidden" value="1" name="row_id[]"></td>
-                                        <td>
-	                                        <a href="javascript:void(0);" class="todo-remove row_1" data-row="row_1">
-	                                            <i class="material-icons">clear</i>
-	                                        </a>
-                                    	</td>
-                                    </tr>
+								
+									<?php 
+									
+									if(isset($quotation_detail)) 
+									{	$c=1; 
+										
+										foreach($quotation_detail as $row)
+										{
+											///	print_r($row); exit; 
+								?>
+											<tr class="rows row_<?php echo $c; ?>" data-info='<?php echo $c; ?>'>
+												<input type="hidden" value="<?php echo $row->quotation_detail_id; ?>" name="quotation_detail_id[]"></td>
+												
+												<td><input type="text" value="<?php echo $row->title; ?>" name="item_title[]"></td>
+												<td><input type="text" value="<?php echo $row->description; ?>"  name="item_description[]"></td>
+												<td><input type="text" value="<?php echo $row->quantity; ?>" name="item_quantity[]"></td>
+												<td><input type="text" value="<?php echo $row->total_cost; ?>"  name="item_total_cost[]"></td>
+												<td><input type="hidden" value="<?php echo $c; ?>" name="item_row_id[]"></td>
+												<td>
+													<a href="javascript:void(0);" data-quotation_detail_id="<?php echo $row->quotation_detail_id; ?>" class="todo-remove row_<?php echo $c; ?>" data-row="row_<?php echo $c; ?>">
+														<i class="material-icons">clear</i>
+													</a>
+												</td>
+											</tr>
+								<?php
+											$c++;
+										}
+									}
+									else 
+									{
+								?>
+											<tr class="rows row_1" data-info='1'>
+												<td>
+														
+														{!! Form::text('item_title[]',null, [
+															 'class' => 'form-control',
+															 'id'=>'item_title',
+															 'aria-invalid'=>'true'
+														]) !!}
+												</td>
+												<td>
+														
+														{!! Form::text('item_description[]',null, [
+															 'class' => 'form-control',
+															 'id'=>'item_description',
+															 'aria-invalid'=>'true'
+														]) !!}
+												</td>
+												<td>
+														{!! Form::text('item_quantity[]',null, [
+															 'class' => 'form-control',
+															 'id'=>'item_quantity',
+															 'aria-invalid'=>'true'
+														]) !!}
+												</td>
+												<td>
+														{!! Form::text('item_total_Cost[]',null, [
+															 'class' => 'form-control',
+															 'id'=>'item_total_Cost',
+															 'aria-invalid'=>'true'
+														]) !!}
+												</td>
+												<td>
+														
+														{!! Form::text('item_row_id[]',null, [
+															 'class' => 'form-control',
+															 'type'=>'hidden',
+															 'value'=>'1',
+															 'aria-invalid'=>'true'
+														]) !!}
+												</td>
+												<td>
+													<a href="javascript:void(0);" data-quotation_detail_id="0" class="todo-remove row_1" data-row="row_1">
+														<i class="material-icons">clear</i>
+													</a>
+												</td>
+											</tr>
+								<?php 
+									}
+								?>
+									
+									
+									
+									
                                 </tbody>
 
                                 <tfoot>
@@ -358,8 +455,19 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th><input type="text" name="total_net_cost" value="{{ old('total_net_cost') }}">
-                                        	@if(isset($errors))
+                                        <th>
+										
+										
+											
+											{!! Form::text('total_net_cost',null, [
+												 'class' => 'form-control',
+												 'id'=>'total_net_cost',
+												 'placeholder'=>"0.0",
+												 'aria-invalid'=>'true'
+											]) !!}
+												
+											
+											@if(isset($errors))
 												<label id="total_net_cost" class="error" for="total_net_cost" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('total_net_cost') }}</label>
 											@endif
                                         </th>
@@ -370,8 +478,19 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th><input type="text" name="tax_sst" value="{{ old('tax_sst') }}">
-                                        	@if(isset($errors))
+                                        <th>
+										
+											
+											{!! Form::text('tax_sst',null, [
+												 'class' => 'form-control',
+												 'id'=>'tax_sst',
+												 'placeholder'=>"0.0",
+												 'aria-invalid'=>'true'
+											]) !!}
+											
+											
+											
+											@if(isset($errors))
 												<label id="tax_sst" class="error" for="tax_sst" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('tax_sst') }}</label>
 											@endif
                                         </th>
@@ -382,8 +501,18 @@
                                         </th>
                                         <th></th>
                                         <th></th>
-                                        <th><input type="text" name="gross_total" value="{{ old('gross_total') }}">
-                                        	@if(isset($errors))
+                                        <th>
+										
+											
+											{!! Form::text('gross_total',null, [
+												 'class' => 'form-control',
+												 'id'=>'gross_total',
+												 'placeholder'=>"0.0",
+												 'aria-invalid'=>'true'
+											]) !!}
+											
+											
+											@if(isset($errors))
 												<label id="gross_total" class="error" for="gross_total" style="font-size: 12px;display: block;margin-top: 5px;font-weight: normal;color: #F44336;">{{ $errors->first('gross_total') }}</label>
 											@endif
                                         </th>                                        
@@ -396,106 +525,9 @@
             </div>
 
 
-        <!-- Masked Input -->
-            {{-- <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                        </div>
-                        <div class="body">
-                            <div class="demo-masked-input">
-                                <div class="row clearfix">
-                                    <div class="col-md-4">
-                                        <b>Project</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">date_range</i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control date" placeholder="Ex: ABC Project">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <b>Description</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <!-- <i class="material-icons">access_time</i> -->
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control time24" placeholder="Ex: ABC">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <b>Estimated Time</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">access_time</i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
-                                            </div>
-                                        </div>
-                                    </div>                                 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                		--}}
 
-          <!-- Masked Input -->
-            {{-- <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                        </div>
-                        <div class="body">
-                            <div class="demo-masked-input">
-                                <div class="row clearfix">
-                                    <div class="col-md-4">
-                                        <b>Project</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">date_range</i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control date" placeholder="Ex: ABC Project">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <b>Description</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <!-- <i class="material-icons">access_time</i> -->
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control time24" placeholder="Ex: ABC">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <b>Estimated Time</b>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <i class="material-icons">access_time</i>
-                                            </span>
-                                            <div class="form-line">
-                                                <input type="text" class="form-control time12" placeholder="Ex: 30/07/2016 23:59">
-                                            </div>
-                                        </div>
-                                    </div>                                 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+
+						
 
 									<button class="btn btn-primary waves-effect" type="submit">Save</button>
 								{!! Form::close() !!}
@@ -518,7 +550,8 @@
 		
 	@section('script')
 			
-			
+			<script src="{{ asset ('public/assets/js/form.min.js') }}"></script>
+
 			<script src="{{ asset ('public/assets/js/table.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/dataTables.buttons.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/jszip.min.js') }}"></script>
@@ -527,6 +560,49 @@
 			<script src="{{ asset ('public/assets/js/buttons.html5.min.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/tables/jquery-datatable.js') }}"></script>
 			<script src="{{ asset ('public/assets/js/pages/tables/editable-table.js') }}"></script>
-			<script type="text/javascript" src="{{ URL::asset('public/js/quotation.js') }}"></script>
+			<script>
 			
+			$(function () {
+				 
+				//Datetimepicker plugin
+				$('.estimated_time').bootstrapMaterialDatePicker({
+					format: 'dddd DD MMMM YYYY - HH:mm',
+					clearButton: true,
+					weekStart: 1
+				});
+
+			
+			  
+				$('.add_row').on('click', function(){
+					let html = '';
+					let getIncVal = parseInt($(this).attr('data-info'));	
+					let inc = parseInt(getIncVal + 1);
+					$(this).attr('data-info',inc);
+						html += '<tr class="rows row_'+parseInt(inc)+'" data-info="'+parseInt(inc)+'">';
+						html += '<td><input type="text" name="item_title[]"></td>';
+						html += '<td><input type="text" name="item_description[]"></td>';
+						html += '<td><input type="text" name="item_quantity[]"></td>';
+						html += '<td><input type="text" name="item_total_cost[]"></td>';
+						html += '<td><input type="hidden" value='+parseInt(inc)+' name="item_row_id[]"></td>';
+						html += '<td><a href="javascript:void(0);"  data-quotation_detail_id="0" data-row="row_'+parseInt(inc)+'" class="todo-remove row_'+parseInt(inc)+'"><i class="material-icons">clear</i></a></td>';
+						html += '</tr>';
+					$('#mainTable').append(html);
+					$('#mainTable').editableTableWidget();
+				});
+
+				$(document).on('click', '.todo-remove', function(){
+					let row = $(this).attr('data-row');
+					var quotation_detail_id = $(this).attr('data-quotation_detail_id');
+					alert(quotation_detail_id); 
+					$('.'+row).remove();
+					
+					
+					$.get("<?php echo url('admin/quotationDetail/delete') ;?>/"+quotation_detail_id,function(data){});
+					  
+  
+				});
+			
+			});		
+				
+			</script>
 	@endsection()

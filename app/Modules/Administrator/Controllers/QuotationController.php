@@ -3,6 +3,8 @@
 namespace App\Modules\Administrator\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use App\Http\Controllers\Controller;
 use App\Models\SuperAdministrator;
 use App\Models\Module;
@@ -13,6 +15,7 @@ use App\Modules\Administrator\Models\Vendor;
 use App\Modules\Administrator\Models\ForeignExchangeRate;
 use App\Modules\Administrator\Models\Quotation;
 use App\Modules\Administrator\Models\QuotationDetail;
+
 use Auth;
 use Config;
 use Carbon\Carbon;
@@ -68,6 +71,7 @@ class QuotationController extends AdministratorController
     public function edit($id = null)
     {   
         $quotation = Quotation::findOrNew($id);
+		$data['quotation_detail'] = QuotationDetail::where(['quotation_id' => $id])->orderBy('quotation_detail_id', 'asc')->get();
         $data['quotation'] = $quotation;
         $data['id'] = $id;
         $data['menu_active'] = 'users';
@@ -76,7 +80,9 @@ class QuotationController extends AdministratorController
 
     public function save(Request $request, $id = null)
     {       
+	
         // dd($request->all());
+		
         $userData   =  Auth::guard('admin')->user();
         $rules = [
                     "date"                          => 'required', 
@@ -89,22 +95,22 @@ class QuotationController extends AdministratorController
                     "project"                       => 'required',
                     "description"                   => 'required',
                     "estimated_time"                => 'required',
-                    "Item.*"                        => 'required|array',
-                    "Description.*"                 => 'required|array',
-                    "Quantity.*"                    => 'required|array',
-                    "Total_Cost.*"                  => 'required|array',
+                   "item_title"                        => 'required|array',
+                    "item_description"                 => 'required|array',
+                    "item_quantity"                    => 'required|array',
+                    "item_total_cost"                  => 'required|array',
                     "total_net_cost"                => 'required',
                     "tax_sst"                       => 'required',
                     "gross_total"                   => 'required',
                 ];
 
-        $messages = ['Item.*.required' => 'Items Required', 'Description.*.required' => 'Description Required', 'Quantity.*.required' => 'Quantity Required', 'Total_Cost.*.required' => 'Total Cost Required'];
+        $messages = ['item_title.*.required' => 'Items Required', 'item_description.*.required' => 'Description Required', 'item_quantity.*.required' => 'Quantity Required', 'item_total_Cost.*.required' => 'Total Cost Required'];
 
         $validator = \Validator::make($request->all(), $rules,$messages,[
             //"name.required"=>"Select User Type"
         ]);
         if($validator->fails()) {
-        // dd($validator);
+         //dd($validator);
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
@@ -118,30 +124,47 @@ class QuotationController extends AdministratorController
         $saveQuotation->save();
 
         $lastQuotationId = $saveQuotation->quotation_id;
-        
-        foreach ($request['Item'] as $key => $value) {
+       
+	  // print_r($request['quotation_detail_id']);exit;  
+        for ($key = 0; $key< count($request['item_row_id']); $key++) {
+			
+			
             $data = [
                 'quotation_id'  => $lastQuotationId,
-                'items'         => $request['Item'][$key],
-                'description'   => $request['Description'][$key],
-                'quantity'      => $request['Quantity'][$key],
-            // 'total_cost'      => $request['Total_Cost'][$key],
+                'title'         => isset($request['item_title'][$key]) ? $request['item_title'][$key] : NULL,
+                'description'   => isset($request['item_description'][$key]) ? $request['item_description'][$key] : NULL,
+                'quantity'      => isset($request['item_quantity'][$key]) ? $request['item_quantity'][$key] : NULL,
+                'total_cost'      => isset($request['item_total_cost'][$key]) ? $request['item_total_cost'][$key] : NULL,
             ];
+			
+			if(isset($request['quotation_detail_id'][$key] ))
+			{
+				
+				$data['quotation_detail_id'] = $request['quotation_detail_id'][$key]; 
+				$saveQuotationDetail = QuotationDetail::FirstOrCreate(['quotation_detail_id' =>  $request['quotation_detail_id'][$key]]);
+		
+				
+			}
+			else 
+			{
+				$saveQuotationDetail = new QuotationDetail;
+			}
+		
 
-            $saveQuotationDetail = QuotationDetail::findOrNew($lastQuotationId);
             $saveQuotationDetail->fill($data);
             $saveQuotationDetail->save();
         }
 
         $action = ($id) ? 'updated.' : 'created.';
-        return redirect('admin/quotation')->with('success',' Qoutation has been '.$action);
+		
+        return redirect('admin/quotation')->with('success',' Quotation has been '.$action);
     }
 
     public function remove($id=null)
     {
         //$id = $request->id ? $request->id : null;
         if($id) {
-            Quotation::find($id)->delete();
+             Quotation::find($id)->delete();
             return response()->json([
                 'status'=>true
             ]);     
@@ -150,6 +173,21 @@ class QuotationController extends AdministratorController
             'status'=>false
         ]);   
     }
+	
+	public function removeQuotationDetail($id=null)
+    {
+        if($id) {
+           $quotation_detail =QuotationDetail::FirstOrCreate(['quotation_detail_id' => $id])->delete();
+		   return response()->json([
+                'status'=>true
+            ]);     
+        }
+        return response()->json([
+            'status'=>false
+        ]);   
+    }
+	
+	
 
     /**
      * Show the form for creating a new resource.

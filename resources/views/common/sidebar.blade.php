@@ -4,6 +4,7 @@
     $type = Session::get('user_data')['type'];
 @endphp 
 
+
     <div>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
