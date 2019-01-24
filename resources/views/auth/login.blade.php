@@ -22,11 +22,11 @@
                         Log in
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Enter Email">
-                        <input class="input100 email" type="text" name="email" placeholder="Email" value="super.admin@ams.com">
+                        <input class="input100 email" type="text" name="email" placeholder="Email" >
                         <i class="material-icons focus-input1001">person</i>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100 password" type="password" name="password" placeholder="Password" value="super.admin">
+                        <input class="input100 password" type="password" name="password" placeholder="Password" >
                         <i class="material-icons focus-input1001">lock</i>
                     </div>
 
